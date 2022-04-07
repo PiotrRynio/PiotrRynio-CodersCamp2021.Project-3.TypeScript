@@ -1,8 +1,9 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import styles from "./Search.module.css";
 
-const Search = styled("div")(({ theme }) => ({
+/*const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -15,18 +16,9 @@ const Search = styled("div")(({ theme }) => ({
     marginLeft: theme.spacing(1),
     width: "auto",
   },
-}));
+}));*/
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
+/*
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
@@ -43,17 +35,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+*/
 
 export const SearchComponent = () => {
   return (
-    <Search>
-      <SearchIconWrapper>
+    <div className={styles.search}>
+      <div className={styles.searchIconWrapper}>
         <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
+      </div>
+      <InputBase
+        placeholder="Search..."
+        inputProps={{ "aria-label": "search" }}
+        className={styles.searchInput}
+      />
+    </div>
+    /*      <StyledInputBase
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
-      />
-    </Search>
+      />*!/*/
+    //</Search>
+    //);
   );
 };

@@ -3,15 +3,13 @@ import styles from "./App.module.css";
 import { SearchAppBar } from "components/organisms/SearchAppBar/SearchAppBar";
 import { Box, Container } from "@mui/material";
 
-function App() {
+export function App() {
   return (
     <>
-      <Box className={styles.background}></Box>
-      <Container sx={{ marginY: 10 }}>
+      <Box className={styles.background} />
+      <Container>
         <SearchAppBar />
       </Container>
     </>
   );
 }
-
-export default App;

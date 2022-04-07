@@ -15,7 +15,7 @@ export const SearchAppBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/*          <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -23,7 +23,7 @@ export const SearchAppBar = () => {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton>*/}
           <Typography
             variant="h6"
             noWrap
