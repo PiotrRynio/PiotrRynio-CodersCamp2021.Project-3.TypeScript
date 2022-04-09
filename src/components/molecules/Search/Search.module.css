@@ -33,10 +33,11 @@
 }
 
 @media (min-width: 500px) {
-  .searchInput {
+  .searchInput input {
     width: 12ch;
   }
-  .searchInput:hover {
-    width: 100%;
+
+  .searchInput input:focus {
+    width: 20ch;
   }
 }
