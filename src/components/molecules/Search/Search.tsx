@@ -1,6 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import styles from "./Search.module.css";
+import styles from "./Search.module.scss";
 
 export const SearchComponent = () => {
   return (
