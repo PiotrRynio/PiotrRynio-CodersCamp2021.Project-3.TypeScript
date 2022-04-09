@@ -7,10 +7,10 @@
   align-items: center;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.15);
-}
 
-.search:hover {
-  background-color: rgba(255, 255, 255, 0.25);
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
 }
 
 .searchIconWrapper {
@@ -25,14 +25,14 @@
   color: inherit;
   width: 100%;
   padding: 4px 4px 4px 10px;
-}
 
-@media (min-width: 500px) {
-  .searchInput input {
-    width: 12ch;
-  }
+  @media (min-width: 500px) {
+    & input {
+      width: 12ch;
+    }
 
-  .searchInput input:focus {
-    width: 20ch;
+    & input:focus {
+      width: 20ch;
+    }
   }
 }
