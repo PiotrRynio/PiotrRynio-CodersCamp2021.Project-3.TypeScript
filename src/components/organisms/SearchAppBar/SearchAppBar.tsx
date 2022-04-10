@@ -1,7 +1,6 @@
 import { IconButton, Typography, Toolbar, Box, AppBar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Logo } from "components/atoms/Logo/Logo";
-import { SearchComponent } from "components/molecules/Search/Search";
+import { Logo, SearchComponent } from "components";
 import styles from "./SearchAppBar.module.css";
 
 export const SearchAppBar = () => {
