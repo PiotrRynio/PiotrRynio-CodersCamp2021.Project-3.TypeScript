@@ -1,0 +1,13 @@
+.background {
+  background-image: url("/src/assets/images/background.png");
+  background-position: center;
+  background-size: cover;
+  position: fixed;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  width: 100px;
+}

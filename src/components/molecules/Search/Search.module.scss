@@ -1,0 +1,40 @@
+@import "/src/assets/global-styles/_index.scss";
+
+.search {
+  position: relative;
+  height: 40px;
+  margin-left: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.15);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+}
+
+.searchIconWrapper {
+  height: 100%;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchInput {
+  color: inherit;
+  width: 100%;
+  padding: 4px 4px 4px 10px;
+
+  @media (min-width: 500px) {
+    & input {
+      width: 12ch;
+    }
+
+    & input:focus {
+      width: 20ch;
+    }
+  }
+}
