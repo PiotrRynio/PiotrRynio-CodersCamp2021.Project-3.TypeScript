@@ -1,6 +1,5 @@
 .navBox {
   width: 100%;
-  padding-left: auto;
   display: flex;
   flex-direction: column;
 }

@@ -3,12 +3,21 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { SentMessage } from "./../../atoms/SentMessage/SentMessage";
 
 export const ChatSection = () => {
   return (
     <>
-      <Box className={styles.chatHeader}>Chat name</Box>
-      <Box className={styles.sentMessagesSection}> Messages </Box>
+      <Box className={styles.chatHeader}>
+        <Typography variant="h5" noWrap component="div">
+          Chat name
+        </Typography>
+      </Box>
+      <Box className={styles.sentMessagesSection}>
+        <SentMessage />
+      </Box>
       <Box className={styles.newMessageSection}>
         <TextField
           className={styles.messageInput}
