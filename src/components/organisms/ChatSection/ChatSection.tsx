@@ -7,7 +7,8 @@ import Box from "@mui/material/Box";
 export const ChatSection = () => {
   return (
     <>
-      <Box className={styles.chatHeader}>HEADER</Box>
+      <Box className={styles.chatHeader}>Chat name</Box>
+      <Box className={styles.sentMessagesSection}> Messages </Box>
       <Box className={styles.newMessageSection}>
         <TextField
           className={styles.messageInput}
