@@ -1,8 +1,8 @@
-import styles from "./ChatSection.module.css";
 import TextField from "@mui/material/TextField";
 import { Button, Box, Typography } from "@mui/material";
 import { Send as SendIcon } from "@mui/icons-material";
-import { SentMessage } from "./../../atoms/SentMessage/SentMessage";
+import { SentMessage } from "components/atoms/SentMessage/SentMessage";
+import styles from "./ChatSection.module.css";
 
 export const ChatSection = () => {
   return (
