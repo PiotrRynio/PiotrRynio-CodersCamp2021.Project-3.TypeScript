@@ -1,7 +1,6 @@
-import styles from "./App.module.css";
-import { SearchAppBar } from "components/organisms/SearchAppBar/SearchAppBar";
 import { Box } from "@mui/material";
-import { ChatSection } from "../../organisms/ChatSection/ChatSection";
+import { SearchAppBar, ChatSection } from "components";
+import styles from "./App.module.css";
 
 export function App() {
   return (
