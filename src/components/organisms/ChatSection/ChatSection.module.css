@@ -1,0 +1,36 @@
+.newMessageSection {
+  align-self: center;
+  display: flex;
+  min-width: 95%;
+  position: absolute;
+  bottom: 2%;
+}
+.messageInput {
+  width: 1200px;
+  margin-right: 60px;
+}
+.sendButton {
+  align-self: center;
+  margin-left: 20px;
+  width: 10%;
+}
+
+.chatHeader {
+  align-self: center;
+  width: 100%;
+  padding-left: 2.5%;
+  padding-block: 5px;
+  margin-top: 20px;
+  height: 40px;
+  font-family: "Roboto Thin";
+  font-size: 30px;
+}
+
+.sentMessagesSection {
+  text-align: center;
+  align-self: center;
+  width: 95%;
+  height: 83%;
+  border-radius: 5px;
+  border: #f7f7f7 5px solid;
+}
