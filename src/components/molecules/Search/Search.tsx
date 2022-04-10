@@ -1,13 +1,12 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import styles from "./Search.module.css";
+import styles from "./Search.module.scss";
 
 export const SearchComponent = () => {
   return (
     <div className={styles.search}>
       <div className={styles.searchIconWrapper}>
-        <SearchIcon />
+        <SearchIcon className={styles.searchIcon} />
       </div>
       <InputBase
         placeholder="Search..."
