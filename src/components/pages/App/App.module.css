@@ -1,3 +1,9 @@
+.topSection {
+  align-self: center;
+  margin: 0;
+  padding: 0;
+}
+
 .background {
   background-image: url("/src/assets/images/background.png");
   background-position: center;
@@ -8,6 +14,29 @@
   height: 100vh;
 }
 
-.container {
-  width: 100px;
+.chatContainer {
+  display: flex;
+  width: 1366px;
+  height: 770px;
+  margin-right: 120px;
+  background-color: white;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+}
+
+.main {
+  width: 100%;
+  margin-top: 100px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.leftSection {
+  border: black 2px solid;
+  width: 20%;
+  height: 80%;
+  margin: 20px;
 }

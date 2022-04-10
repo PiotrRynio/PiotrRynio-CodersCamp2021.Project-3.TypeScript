@@ -1,0 +1,19 @@
+.iconButton {
+  color: inherit;
+  margin-right: 2px;
+}
+
+.typography {
+  flex-grow: 1;
+}
+.appBar {
+  max-width: 80%;
+  margin-top: 10px;
+  margin: 0;
+}
+
+@media (min-width: 500px) {
+  .typography {
+    display: block;
+  }
+}
