@@ -1,13 +1,18 @@
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import styles from "./SentMessage.module.scss";
+import { Typography, Container } from "@mui/material";
 
-export const SentMessage = () => {
+type sentMessageProps = {
+  messageText: string;
+  isOwn?: boolean;
+  isLast?: boolean;
+};
+
+export const SentMessage = ({ messageText }: sentMessageProps) => {
   return (
-    <Box className={styles.messageContent}>
+    <Container className={styles.messageContent}>
       <Typography variant="body1" noWrap component="div">
-        Sample message
+        {messageText}
       </Typography>
-    </Box>
+    </Container>
   );
 };

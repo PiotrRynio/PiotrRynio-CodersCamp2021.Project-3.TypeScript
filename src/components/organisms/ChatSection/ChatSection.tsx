@@ -16,7 +16,7 @@ export const ChatSection = () => {
         </Typography>
       </Box>
       <Box className={styles.sentMessagesSection}>
-        <SentMessage />
+        <SentMessage messageText={"Sample temporary message"} />
       </Box>
       <Box className={styles.newMessageSection}>
         <TextField
