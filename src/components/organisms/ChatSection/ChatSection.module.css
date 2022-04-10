@@ -1,11 +1,13 @@
-.section {
-  width: 1366px;
-  height: 200px;
-}
-
 .messageInput {
-  width: 1300px;
-  border: none;
-  bottom: 2px;
-  margin-top: 100px;
+  width: 1164px;
+  margin-right: 20px;
+}
+.newMessageSection {
+  align-self: flex-end;
+  margin-left: 40px;
+  margin-bottom: 20px;
+  display: flex;
+}
+.sendButton {
+  align-self: center;
 }

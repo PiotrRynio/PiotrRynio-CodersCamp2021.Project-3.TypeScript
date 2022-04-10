@@ -14,20 +14,22 @@ import { Logo } from "components/atoms/Logo/Logo";
 
 export const SearchAppBar = () => {
   return (
-    <AppBar className={styles.appBar}>
-      <Toolbar>
-        <IconButton aria-label="open drawer" className={styles.iconButton}>
-          <MenuIcon />
-        </IconButton>
-        <Logo />
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          className={styles.typography}
-        ></Typography>
-        <SearchComponent />
-      </Toolbar>
-    </AppBar>
+    <Box id="box" className={styles.navBox}>
+      <AppBar className={styles.appBar}>
+        <Toolbar>
+          <IconButton aria-label="open drawer" className={styles.iconButton}>
+            <MenuIcon />
+          </IconButton>
+          <Logo />
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            className={styles.typography}
+          ></Typography>
+          <SearchComponent />
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };

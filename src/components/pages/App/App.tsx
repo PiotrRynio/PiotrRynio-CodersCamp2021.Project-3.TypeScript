@@ -8,15 +8,17 @@ export function App() {
   return (
     <>
       <Box className={styles.background}>
-        <div>
-          <SearchAppBar />
-        </div>
-        <div className={styles.main}>
-          <div className={styles.leftSection}>LeftSide</div>
-          <div className={styles.chatContainer}>
-            <ChatSection />
+        <Box>
+          <Box>
+            <SearchAppBar />
+          </Box>
+          <div className={styles.main}>
+            <div className={styles.leftSection}>Left Side</div>
+            <div className={styles.chatContainer}>
+              <ChatSection />
+            </div>
           </div>
-        </div>
+        </Box>
       </Box>
     </>
   );

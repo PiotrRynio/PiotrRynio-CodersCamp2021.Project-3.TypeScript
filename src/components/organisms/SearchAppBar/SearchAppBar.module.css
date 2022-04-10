@@ -1,3 +1,18 @@
+.navBox {
+  width: 100%;
+  padding-left: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.appBar {
+  max-width: 90%;
+  margin-top: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative !important;
+}
+
 .iconButton {
   color: inherit;
   margin-right: 2px;
@@ -5,11 +20,6 @@
 
 .typography {
   flex-grow: 1;
-}
-.appBar {
-  max-width: 80%;
-  margin-top: 10px;
-  margin: 0;
 }
 
 @media (min-width: 500px) {
