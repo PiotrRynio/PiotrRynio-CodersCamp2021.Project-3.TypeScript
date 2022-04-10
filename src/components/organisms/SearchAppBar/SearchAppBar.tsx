@@ -1,12 +1,8 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import { IconButton, Typography, Toolbar, Box, AppBar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { SearchComponent } from "../../molecules/Search/Search";
-import styles from "./SearchAppBar.module.css";
 import { Logo } from "components/atoms/Logo/Logo";
+import { SearchComponent } from "components/molecules/Search/Search";
+import styles from "./SearchAppBar.module.css";
 
 export const SearchAppBar = () => {
   return (
@@ -22,7 +18,7 @@ export const SearchAppBar = () => {
             noWrap
             component="div"
             className={styles.typography}
-          ></Typography>
+          />
           <SearchComponent />
         </Toolbar>
       </AppBar>

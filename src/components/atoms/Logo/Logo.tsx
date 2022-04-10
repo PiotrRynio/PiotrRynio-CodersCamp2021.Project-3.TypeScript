@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
-
-import logoText from "../../../assets/images/logoText.png";
-import logoIcon from "../../../assets/images/logoIcon.png";
+import logoText from "assets/images/logoText.png";
+import logoIcon from "assets/images/logoIcon.png";
 
 type LogoProps = {
   isTextLogo: boolean;

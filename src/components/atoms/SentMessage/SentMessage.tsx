@@ -1,5 +1,5 @@
-import styles from "./SentMessage.module.scss";
 import { Typography, Container } from "@mui/material";
+import styles from "./SentMessage.module.scss";
 
 type sentMessageProps = {
   messageText: string;
