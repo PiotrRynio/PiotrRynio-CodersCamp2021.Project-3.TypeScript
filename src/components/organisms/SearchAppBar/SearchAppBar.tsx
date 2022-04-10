@@ -20,7 +20,7 @@ export const SearchAppBar = () => {
           <IconButton aria-label="open drawer" className={styles.iconButton}>
             <MenuIcon />
           </IconButton>
-          <Logo />
+          <Logo isTextLogo={true} />
           <Typography
             variant="h6"
             noWrap
