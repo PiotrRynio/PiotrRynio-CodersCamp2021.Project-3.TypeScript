@@ -1,10 +1,7 @@
 import styles from "./ChatSection.module.css";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import * as React from "react";
+import { Button, Box, Typography } from "@mui/material";
+import { Send as SendIcon } from "@mui/icons-material";
 import { SentMessage } from "./../../atoms/SentMessage/SentMessage";
 
 export const ChatSection = () => {
