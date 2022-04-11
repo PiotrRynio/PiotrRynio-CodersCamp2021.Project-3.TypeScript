@@ -9,6 +9,7 @@ type MessageListProps = {
 };
 
 export const SentMessagesList = ({ messages }: MessageListProps) => {
+  console.log(messages);
   return (
     <Box>
       {messages.map((message) => (
