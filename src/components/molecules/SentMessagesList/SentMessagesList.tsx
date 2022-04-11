@@ -13,6 +13,7 @@ export const SentMessagesList = ({ messages }: MessageListProps) => {
     <Box>
       {messages.map((message) => (
         <SentMessage
+          key={message.messageText}
           messageText={message.messageText}
           isLast={message.isLast}
           isOwn={message.isOwn}

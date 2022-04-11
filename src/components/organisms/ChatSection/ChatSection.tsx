@@ -1,26 +1,35 @@
 import { Button, Box, Typography, TextField } from "@mui/material";
 import { Send as SendIcon } from "@mui/icons-material";
-import { SentMessage } from "components";
 import styles from "./ChatSection.module.css";
+import { SentMessagesList } from "components";
+import React, { useState } from "react";
 
 export const ChatSection = () => {
+  const [messageToSend, setMessageToSend] = useState<string>("");
+
   const tempMessage1 = {
-    messageText = "Wiadomosc 1 TEST",
-    isOwn = false,
-    isLast = false,
+    messageText: "Wiadomosc 1 TEST",
+    isOwn: false,
+    isLast: false,
   };
   const tempMessage2 = {
-    messageText = "Wiadomosc 2 TEST",
-    isOwn = false,
-    isLast = false,
+    messageText: "Wiadomosc 2 TEST",
+    isOwn: false,
+    isLast: false,
   };
   const tempMessage3 = {
-    messageText = "Wiadomosc 1 TEST",
-    isOwn = false,
-    isLast = false,
+    messageText: "Wiadomosc 3 TEST",
+    isOwn: false,
+    isLast: false,
   };
 
-  const messages = [tempMessage1, tempMessage2, tempMessage3];
+  const tempMessages = [tempMessage1, tempMessage2, tempMessage3];
+
+  const sendMessage = () => {
+    console.log("MESSAGE SEND");
+    console.log(messageToSend);
+    setMessageToSend("");
+  };
 
   return (
     <>
@@ -30,9 +39,7 @@ export const ChatSection = () => {
         </Typography>
       </Box>
       <Box className={styles.sentMessagesSection}>
-        {/*
-        <SentMessagesList />
- */}
+        <SentMessagesList messages={tempMessages} />
       </Box>
       <Box className={styles.newMessageSection}>
         <TextField
@@ -42,12 +49,20 @@ export const ChatSection = () => {
           variant="filled"
           multiline
           maxRows="6"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              sendMessage();
+            }
+          }}
+          onChange={(e) => setMessageToSend(e.target.value)}
+          value={messageToSend}
         />
 
         <Button
           variant="contained"
           startIcon={<SendIcon />}
           className={styles.sendButton}
+          onClick={sendMessage}
         >
           Send
         </Button>
