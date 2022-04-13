@@ -1,6 +1,6 @@
 import { Button, Box, Typography, TextField } from "@mui/material";
 import { Send as SendIcon } from "@mui/icons-material";
-import { SentMessage } from "components";
+import { MessageText } from "components";
 import styles from "./ChatSection.module.css";
 
 export const ChatSection = () => {
@@ -12,7 +12,7 @@ export const ChatSection = () => {
         </Typography>
       </Box>
       <Box className={styles.sentMessagesSection}>
-        <SentMessage messageText={"Sample temporary message"} />
+        <MessageText content={"Test Message"} />
       </Box>
       <Box className={styles.newMessageSection}>
         <TextField
