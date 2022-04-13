@@ -2,7 +2,11 @@ import { Button, Box, Typography, TextField } from "@mui/material";
 import { Send as SendIcon } from "@mui/icons-material";
 import styles from "./ChatSection.module.css";
 import { SentMessagesList } from "components";
-import React, { useState } from "react";
+import { useState } from "react";
+import { dataBase } from "../../../assets/firebase";
+import { collection } from "firebase/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+
 const tempMessage1 = {
   messageText: "Wiadomosc 1 TEST",
   isOwn: false,
@@ -20,12 +24,19 @@ const tempMessage3 = {
 };
 
 const tempMessages = [tempMessage1, tempMessage2, tempMessage3];
+
 export const ChatSection = () => {
   const [messageToSend, setMessageToSend] = useState<string>("");
 
+  const messagesCollectionRef = collection(dataBase, "messages");
+
+  const [messages, loading, error] = useCollectionData(messagesCollectionRef);
+
+  if (!loading) {
+    console.log(messages);
+  }
+
   const sendMessage = () => {
-    console.log("MESSAGE SEND");
-    console.log(messageToSend);
     setMessageToSend("");
 
     const newMessage = {
