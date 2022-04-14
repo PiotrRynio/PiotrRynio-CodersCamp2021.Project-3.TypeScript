@@ -1,0 +1,19 @@
+.messageToLeft {
+  display: flex;
+  flex-direction: row;
+}
+
+.messageToRight {
+  display: flex;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.messageContainer {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.messageMargin {
+  width: 56px;
+}

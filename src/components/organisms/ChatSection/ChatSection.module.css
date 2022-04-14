@@ -22,15 +22,15 @@
   padding-block: 5px;
   margin-top: 20px;
   height: 40px;
-  font-family: "Roboto Thin";
+  font-family: "Roboto Thin", sans-serif;
   font-size: 30px;
 }
 
-.sentMessagesSection {
-  text-align: center;
-  align-self: center;
-  width: 95%;
-  height: 83%;
-  border-radius: 5px;
-  border: #f7f7f7 5px solid;
-}
+/*.sentMessagesSection {*/
+/*  text-align: center;*/
+/*  align-self: center;*/
+/*  width: 95%;*/
+/*  height: 83%;*/
+/*  border-radius: 5px;*/
+/*  border: #f7f7f7 5px solid;*/
+/*}*/
