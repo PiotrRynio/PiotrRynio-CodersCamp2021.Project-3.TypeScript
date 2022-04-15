@@ -1,51 +1,34 @@
+import { useState } from "react";
 import { Button, Box, Typography, TextField } from "@mui/material";
 import { Send as SendIcon } from "@mui/icons-material";
-import styles from "./ChatSection.module.css";
-import { SentMessagesList } from "components";
-import { useState } from "react";
-import { dataBase } from "../../../assets/firebase";
-import { collection } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import { dataBase } from "../../../assets/firebase";
+import { SentMessagesList } from "components";
+import styles from "./ChatSection.module.css";
+import firebase from "firebase/compat";
+import firestore = firebase.firestore;
+import DocumentReference = firebase.firestore.DocumentReference;
 
-const tempMessage1 = {
-  messageText: "Wiadomosc 1 TEST",
-  isOwn: false,
-  isLast: false,
+export type MessageItemToFirebase = {
+  authorId: DocumentReference;
+  content: string;
+  sentAt: Date;
 };
-const tempMessage2 = {
-  messageText: "Wiadomosc 2 TEST",
-  isOwn: false,
-  isLast: false,
-};
-const tempMessage3 = {
-  messageText: "Wiadomosc 3 TEST",
-  isOwn: false,
-  isLast: false,
-};
-
-const tempMessages = [tempMessage1, tempMessage2, tempMessage3];
-
 export const ChatSection = () => {
   const [messageToSend, setMessageToSend] = useState<string>("");
+  const messagesCollection = collection(dataBase, "messages");
+  const [messages, loading, error] = useCollectionData(messagesCollection);
 
-  const messagesCollectionRef = collection(dataBase, "messages");
-
-  const [messages, loading, error] = useCollectionData(messagesCollectionRef);
-
-  if (!loading) {
-    console.log(messages);
-  }
-
-  const sendMessage = () => {
+  const sendMessage = async () => {
+    const newMessage: MessageItemToFirebase = {
+      authorId: new DocumentReference(),
+      content: "Test",
+      sentAt: new Date(),
+    };
     setMessageToSend("");
 
-    const newMessage = {
-      messageText: messageToSend,
-      isOwn: false,
-      isLast: false,
-    };
-
-    tempMessages.push(newMessage);
+    await addDoc(messagesCollection, newMessage);
   };
 
   return (
@@ -56,7 +39,7 @@ export const ChatSection = () => {
         </Typography>
       </Box>
       <Box className={styles.sentMessagesSection}>
-        <SentMessagesList messages={tempMessages} />
+        {/* <SentMessagesList messages={messages} />*/}
       </Box>
       <Box className={styles.newMessageSection}>
         <TextField
@@ -66,12 +49,12 @@ export const ChatSection = () => {
           variant="filled"
           multiline
           maxRows="6"
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
               sendMessage();
             }
           }}
-          onChange={(e) => setMessageToSend(e.target.value)}
+          onChange={(event) => setMessageToSend(event.target.value)}
           value={messageToSend}
         />
 
