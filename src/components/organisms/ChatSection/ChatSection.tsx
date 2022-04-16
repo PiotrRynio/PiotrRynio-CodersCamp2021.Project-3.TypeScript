@@ -1,6 +1,6 @@
-import { Button, Box, Typography, TextField } from "@mui/material";
+import { Button, Box, Container, Typography, TextField } from "@mui/material";
 import { Send as SendIcon } from "@mui/icons-material";
-import { SentMessage } from "components";
+import { Message } from "components";
 import styles from "./ChatSection.module.css";
 
 export const ChatSection = () => {
@@ -12,7 +12,16 @@ export const ChatSection = () => {
         </Typography>
       </Box>
       <Box className={styles.sentMessagesSection}>
-        <SentMessage messageText={"Sample temporary message"} />
+        <Message
+          author={{
+            name: "Patryk Święcicki",
+            avatar:
+              "https://gfx.planeta.pl/var/planetapl/storage/images/wiadomosci/swiat/aligator-zaatakowal-rowerzyste.-wzial-go-w-paszcze-21-07-2021/5276486-1-pol-PL/ALIGATOR-ZAATAKOWAL-ROWERZYSTE.-Wzial-go-w-paszcze_article.jpg",
+          }}
+          message={{ content: "I jak? Podoba się?", date: new Date() }}
+          isLast={true}
+          isOwn={true}
+        />
       </Box>
       <Box className={styles.newMessageSection}>
         <TextField

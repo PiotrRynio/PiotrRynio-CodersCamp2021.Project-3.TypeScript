@@ -1,3 +1,3 @@
 export * from "./Logo";
-export * from "./SentMessage";
+export * from "./MessageText";
 export * from "./UserAvatar";
