@@ -1,4 +1,4 @@
-import { Button, Box, Typography, TextField } from "@mui/material";
+import { Button, Box, Container, Typography, TextField } from "@mui/material";
 import { Send as SendIcon } from "@mui/icons-material";
 import { Message } from "components";
 import styles from "./ChatSection.module.css";
@@ -18,8 +18,8 @@ export const ChatSection = () => {
             avatar:
               "https://gfx.planeta.pl/var/planetapl/storage/images/wiadomosci/swiat/aligator-zaatakowal-rowerzyste.-wzial-go-w-paszcze-21-07-2021/5276486-1-pol-PL/ALIGATOR-ZAATAKOWAL-ROWERZYSTE.-Wzial-go-w-paszcze_article.jpg",
           }}
-          message={{ content: "I jak?", date: new Date() }}
-          isLast={false}
+          message={{ content: "I jak? Podoba się?", date: new Date() }}
+          isLast={true}
           isOwn={true}
         />
       </Box>

@@ -13,11 +13,7 @@ export const MessageText = ({ content, date, isLast }: MessageTextProps) => {
       <Typography variant="body1" noWrap component="div">
         {content}
       </Typography>
-      {isLast ? (
-        <Typography className={styles.date}>{dateAsString(date)}</Typography>
-      ) : (
-        <></>
-      )}
+      {isLast ? <p className={styles.date}>{dateAsString(date)}</p> : <></>}
     </Box>
   );
 };
