@@ -9,7 +9,7 @@ type MessageProps = {
   };
   message: {
     content: string;
-    date: string;
+    date: Date;
   };
   isOwn?: boolean;
   isLast?: boolean;
@@ -17,17 +17,23 @@ type MessageProps = {
 
 export const Message = ({ author, message, isOwn, isLast }: MessageProps) => {
   return (
-    <Box
-      className={`${isOwn ? styles.messageToRight : styles.messageToLeft} ${
-        styles.messageContainer
-      }`}
-    >
-      {isLast ? (
-        <UserAvatar label={author.name} image={author.avatar} />
-      ) : (
-        <div className={styles.messageMargin} />
-      )}
-      <MessageText content={message.content} />
-    </Box>
+    <>
+      <Box
+        className={`${isOwn ? styles.messageToRight : styles.messageToLeft} ${
+          styles.messageContainer
+        }`}
+      >
+        {isLast ? (
+          <UserAvatar label={author.name} image={author.avatar} />
+        ) : (
+          <div className={styles.messageMargin} />
+        )}
+        <MessageText
+          content={message.content}
+          date={message.date}
+          isLast={isLast}
+        />
+      </Box>
+    </>
   );
 };

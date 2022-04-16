@@ -18,7 +18,7 @@ export const ChatSection = () => {
             avatar:
               "https://gfx.planeta.pl/var/planetapl/storage/images/wiadomosci/swiat/aligator-zaatakowal-rowerzyste.-wzial-go-w-paszcze-21-07-2021/5276486-1-pol-PL/ALIGATOR-ZAATAKOWAL-ROWERZYSTE.-Wzial-go-w-paszcze_article.jpg",
           }}
-          message={{ content: "I jak?", date: Date.now().toString() }}
+          message={{ content: "I jak?", date: new Date() }}
           isLast={false}
           isOwn={true}
         />
@@ -29,7 +29,7 @@ export const ChatSection = () => {
             avatar:
               "https://gfx.planeta.pl/var/planetapl/storage/images/wiadomosci/swiat/aligator-zaatakowal-rowerzyste.-wzial-go-w-paszcze-21-07-2021/5276486-1-pol-PL/ALIGATOR-ZAATAKOWAL-ROWERZYSTE.-Wzial-go-w-paszcze_article.jpg",
           }}
-          message={{ content: "Podoba się?", date: Date.now().toString() }}
+          message={{ content: "Podoba się?", date: new Date() }}
           isLast={true}
           isOwn={true}
         />
@@ -42,7 +42,7 @@ export const ChatSection = () => {
           }}
           message={{
             content: "Hmmm... Muszę się zastanowić",
-            date: Date.now().toString(),
+            date: new Date(),
           }}
           isLast={true}
           isOwn={false}
