@@ -49,39 +49,41 @@ export const ChatSection = () => {
       <Box className={styles.sentMessagesSection}>
         {/* <SentMessagesList messages={messages} />*/}
       </Box>
-      <form onSubmit={handleSubmit(sendMessage)}>
-        <Controller
+      <Box className={styles.newMessageSection}>
+        <form onSubmit={handleSubmit(sendMessage)}>
+          <Controller
+            name="message"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                {...field}
+                className={styles.messageInput}
+                aria-label="maximum height"
+                placeholder="Enter message..."
+                variant="filled"
+                {...register("message", {
+                  required: true,
+                  pattern: {
+                    value: /.*[^\s].*/,
+                    message: "Sorry, you cannot send only white spaces",
+                  },
+                  maxLength: {
+                    value: 500,
+                    message:
+                      "Sorry, your message shouldn't exceed 500 characters",
+                  },
+                })}
+              />
+            )}
+          />
+        </form>
+        <ErrorMessage
+          errors={errors}
           name="message"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField
-              {...field}
-              className={styles.messageInput}
-              aria-label="maximum height"
-              placeholder="Enter message..."
-              variant="filled"
-              {...register("message", {
-                required: true,
-                pattern: {
-                  value: /.*[^\s].*/,
-                  message: "Sorry, you cannot send only white spaces",
-                },
-                maxLength: {
-                  value: 500,
-                  message:
-                    "Sorry, your message shouldn't exceed 500 characters",
-                },
-              })}
-            />
-          )}
+          render={({ message }) => <div>{message}</div>}
         />
-      </form>
-      <ErrorMessage
-        errors={errors}
-        name="message"
-        render={({ message }) => <div>{message}</div>}
-      />
+      </Box>
     </>
   );
 };
