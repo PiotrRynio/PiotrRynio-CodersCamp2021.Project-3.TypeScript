@@ -1,33 +1,41 @@
-import { useState } from "react";
 import { Button, Box, Typography, TextField } from "@mui/material";
-import { Send as SendIcon } from "@mui/icons-material";
 import { collection, addDoc } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { dataBase } from "../../../assets/firebase";
 import { SentMessagesList } from "components";
 import styles from "./ChatSection.module.css";
-import firebase from "firebase/compat";
-import firestore = firebase.firestore;
-import DocumentReference = firebase.firestore.DocumentReference;
+import { DocumentReference } from "@firebase/firestore-types";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
-export type MessageItemToFirebase = {
-  authorId: DocumentReference;
+type MessageItemToFirebase = {
   content: string;
   sentAt: Date;
+  author?: DocumentReference;
 };
+
+interface IFormInput {
+  message: string;
+}
+
 export const ChatSection = () => {
-  const [messageToSend, setMessageToSend] = useState<string>("");
+  const {
+    control,
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm<IFormInput>();
+
   const messagesCollection = collection(dataBase, "messages");
   const [messages, loading, error] = useCollectionData(messagesCollection);
 
-  const sendMessage = async () => {
+  const sendMessage: SubmitHandler<IFormInput> = async (data) => {
     const newMessage: MessageItemToFirebase = {
-      authorId: new DocumentReference(),
-      content: "Test",
+      content: data.message,
       sentAt: new Date(),
     };
-    setMessageToSend("");
-
+    reset();
     await addDoc(messagesCollection, newMessage);
   };
 
@@ -41,32 +49,39 @@ export const ChatSection = () => {
       <Box className={styles.sentMessagesSection}>
         {/* <SentMessagesList messages={messages} />*/}
       </Box>
-      <Box className={styles.newMessageSection}>
-        <TextField
-          className={styles.messageInput}
-          aria-label="maximum height"
-          placeholder="Enter message..."
-          variant="filled"
-          multiline
-          maxRows="6"
-          onKeyDown={(event) => {
-            if (event.key === "Enter") {
-              sendMessage();
-            }
-          }}
-          onChange={(event) => setMessageToSend(event.target.value)}
-          value={messageToSend}
+      <form onSubmit={handleSubmit(sendMessage)}>
+        <Controller
+          name="message"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              {...field}
+              className={styles.messageInput}
+              aria-label="maximum height"
+              placeholder="Enter message..."
+              variant="filled"
+              {...register("message", {
+                required: true,
+                pattern: {
+                  value: /.*[^\s].*/,
+                  message: "Sorry, you cannot send only white spaces",
+                },
+                maxLength: {
+                  value: 500,
+                  message:
+                    "Sorry, your message shouldn't exceed 500 characters",
+                },
+              })}
+            />
+          )}
         />
-
-        <Button
-          variant="contained"
-          startIcon={<SendIcon />}
-          className={styles.sendButton}
-          onClick={sendMessage}
-        >
-          Send
-        </Button>
-      </Box>
+      </form>
+      <ErrorMessage
+        errors={errors}
+        name="message"
+        render={({ message }) => <div>{message}</div>}
+      />
     </>
   );
 };
