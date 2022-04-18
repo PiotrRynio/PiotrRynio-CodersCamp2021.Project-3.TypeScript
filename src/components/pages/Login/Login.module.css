@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("/src/assets/images/background.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  height: 630px;
+  width: 443px;
+  padding: 20px 15px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.input {
+  height: 56px;
+  width: 396px;
+  left: 763px;
+  top: 324px;
+  border-radius: 20px;
+}
+
+.button {
+  height: 60px;
+  width: 396px;
+  color: white;
+  background-color: #3f51b5;
+  border-radius: 20px;
+}
