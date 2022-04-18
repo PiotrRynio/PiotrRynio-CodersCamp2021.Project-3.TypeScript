@@ -6,4 +6,77 @@
   z-index: -1;
   width: 100vw;
   height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.text {
+  font-family: Roboto, sans-serif;
+  color: #312e36;
+  text-align: center;
+}
+
+.textBackground {
+  padding: 10px 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.colorText {
+  color: #00acc1;
+}
+
+.button {
+  border: none;
+  height: 50px;
+  margin-bottom: 10px;
+  width: 300px;
+  color: #ffffff;
+  background: #00acc1;
+}
+
+.button:hover {
+  color: #00acc1;
+  background: #ffffff;
+}
+
+@media (min-width: 800px) {
+  .background {
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+
+  .logoMargin {
+    margin-right: 50px;
+  }
+
+  .textBackground {
+    padding: 100px 0;
+    margin: 50px 0 30px 0;
+  }
+
+  .text {
+    width: 500px;
+    margin-left: 90px;
+    text-align: left;
+  }
+
+  .buttons {
+    align-self: flex-start;
+    flex-direction: row;
+    margin-left: 50px;
+  }
+
+  .button {
+    margin-right: 20px;
+  }
 }
