@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 
-type IUserContext = {
+type UserContextType = {
   firstName?: string;
   lastName?: string;
   isAuth: boolean;
@@ -8,12 +8,12 @@ type IUserContext = {
   setIsAuth: (newIsAuth: boolean) => void;
 };
 
-const userContextDefaultValues: IUserContext = {
+const userContextDefaultValues: UserContextType = {
   isAuth: false,
   setIsAuth: (newIsAuth: boolean) => {},
 };
 
-export const UserContext = createContext<IUserContext>(
+export const UserContext = createContext<UserContextType>(
   userContextDefaultValues
 );
 
@@ -28,3 +28,6 @@ export const AppProviders = ({ children }: { children: React.ReactNode }) => {
     </UserContext.Provider>
   );
 };
+
+//bedzie dodane
+//export const useAppContext = () => useContext(AppContext);
