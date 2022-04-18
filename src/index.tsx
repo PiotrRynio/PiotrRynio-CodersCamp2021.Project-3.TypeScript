@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
-import { App } from "./components/pages/App/App";
+import { App } from "components";
+import { WelcomePage } from "components";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <WelcomePage />
   </React.StrictMode>,
   document.getElementById("root")
 );
