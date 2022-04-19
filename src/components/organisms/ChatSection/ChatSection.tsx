@@ -5,19 +5,19 @@ import styles from "./ChatSection.module.css";
 
 export const ChatSection = () => {
   const tempMessage1 = {
-    messageText = "Wiadomosc 1 TEST",
-    isOwn = false,
-    isLast = false,
+    messageText: "Wiadomosc 1 TEST",
+    isOwn: false,
+    isLast: false,
   };
   const tempMessage2 = {
-    messageText = "Wiadomosc 2 TEST",
-    isOwn = false,
-    isLast = false,
+    messageText: "Wiadomosc 2 TEST",
+    isOwn: false,
+    isLast: false,
   };
   const tempMessage3 = {
-    messageText = "Wiadomosc 1 TEST",
-    isOwn = false,
-    isLast = false,
+    messageText: "Wiadomosc 1 TEST",
+    isOwn: false,
+    isLast: false,
   };
 
   const messages = [tempMessage1, tempMessage2, tempMessage3];

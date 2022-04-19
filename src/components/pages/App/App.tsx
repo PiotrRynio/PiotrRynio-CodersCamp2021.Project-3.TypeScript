@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { SearchAppBar, ChatSection } from "components";
+import { SearchAppBar, ChatSection, LeftSection } from "components";
 import styles from "./App.module.css";
 
 export function App() {
@@ -11,7 +11,9 @@ export function App() {
             <SearchAppBar />
           </Box>
           <div className={styles.main}>
-            <div className={styles.leftSection}>Left Side</div>
+            <div className={styles.leftSection}>
+              <LeftSection />
+            </div>
             <div className={styles.chatContainer}>
               <ChatSection />
             </div>
