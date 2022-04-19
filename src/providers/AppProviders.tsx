@@ -1,16 +1,25 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 type UserContextType = {
   firstName?: string;
   lastName?: string;
   isAuth: boolean;
   email?: string;
-  setIsAuth: (newIsAuth: boolean) => void;
+  setFirstName?: (firstName: string) => void;
+  setLastName?: (lastName: string) => void;
+  setIsAuth: (isAuth: boolean) => void;
+  setEmail?: (email: string) => void;
 };
 
 const userContextDefaultValues: UserContextType = {
+  firstName: "aaa",
+  lastName: "",
   isAuth: false,
-  setIsAuth: (newIsAuth: boolean) => {},
+  email: "",
+  setFirstName: (firstName: string) => {},
+  setLastName: (lastName: string) => {},
+  setIsAuth: (isAuth: boolean) => {},
+  setEmail: (email: string) => {},
 };
 
 export const UserContext = createContext<UserContextType>(
@@ -21,13 +30,32 @@ export const AppProviders = ({ children }: { children: React.ReactNode }) => {
   const [isAuth, setIsAuth] = useState<boolean>(
     userContextDefaultValues.isAuth
   );
+  const [firstName, setFirstName] = useState<string>(
+    userContextDefaultValues.firstName || ""
+  );
+  const [lastName, setLastName] = useState<string>(
+    userContextDefaultValues.lastName || ""
+  );
+  const [email, setEmail] = useState<string>(
+    userContextDefaultValues.email || ""
+  );
 
   return (
-    <UserContext.Provider value={{ isAuth, setIsAuth }}>
+    <UserContext.Provider
+      value={{
+        isAuth,
+        setIsAuth,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
+        email,
+        setEmail,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
 };
 
-//bedzie dodane
-//export const useAppContext = () => useContext(AppContext);
+export const useAppUserContext = () => useContext(UserContext);
