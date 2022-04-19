@@ -7,7 +7,6 @@ import styles from "./ChatSection.module.css";
 import { DocumentReference } from "@firebase/firestore-types";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { Send as SendIcon } from "@mui/icons-material";
 
 type MessageItemToFirebase = {
   content: string;

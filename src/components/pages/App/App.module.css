@@ -35,10 +35,10 @@
   margin-left: 5%;
 }
 .leftSection {
-  border: #1976d2 1px solid;
   color: #1976d2;
   min-width: 25%;
   margin-right: 2%;
   min-height: 100%;
   text-align: center;
+  position: relative;
 }

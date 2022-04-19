@@ -9,12 +9,15 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import styles from "./LeftSection.module.css";
+import Button from "@mui/material/Button";
 
 export const LeftSection = () => {
   return (
     <>
       <Box className={styles.searchSection}>
         <TextField
+          multiline={true}
+          maxRows={2}
           className={styles.searchChatField}
           label="Search chat"
           type="search"
@@ -92,7 +95,11 @@ export const LeftSection = () => {
           </ListItem>
         </List>
       </Box>
-      <Box>bottomButtonSection</Box>
+      <Box className={styles.bottomButtonSection}>
+        <Button variant="contained" className={styles.button}>
+          Create new Chat
+        </Button>
+      </Box>
     </>
   );
 };
