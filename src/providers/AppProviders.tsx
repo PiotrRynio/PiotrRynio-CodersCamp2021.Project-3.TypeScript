@@ -12,7 +12,7 @@ type UserContextType = {
 };
 
 const userContextDefaultValues: UserContextType = {
-  firstName: "aaa",
+  firstName: "",
   lastName: "",
   isAuth: false,
   email: "",
