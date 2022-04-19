@@ -7,11 +7,19 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import styles from "./LeftSection.module.css";
 
 export const LeftSection = () => {
   return (
     <>
-      <Box>searchSection</Box>
+      <Box className={styles.searchSection}>
+        <TextField
+          className={styles.searchChatField}
+          label="Search chat"
+          type="search"
+        />
+      </Box>
       <Box>
         chatsSection
         <List
