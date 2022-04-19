@@ -1,4 +1,5 @@
-import { Button, Box, Typography, TextField } from "@mui/material";
+import { Button, Box, Typography, TextField, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { collection, addDoc } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { dataBase } from "../../../assets/firebase";
@@ -18,7 +19,11 @@ interface IFormInput {
   message: string;
 }
 
-export const ChatSection = () => {
+type ChatSectionProps = {
+  closeFunction(): void;
+};
+
+export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   const {
     control,
     handleSubmit,
@@ -42,12 +47,15 @@ export const ChatSection = () => {
   return (
     <>
       <Box className={styles.chatHeader}>
-        <Typography variant="h5" noWrap component="div">
+        <Typography variant="h5" noWrap component="div" fontWeight={700}>
           Chat name
         </Typography>
+        <IconButton onClick={() => closeFunction()}>
+          <CloseIcon />
+        </IconButton>
       </Box>
       <Box className={styles.sentMessagesSection}>
-        {/* <SentMessagesList messages={messages} />*/}
+        {/*<SentMessagesList messages={messages} />*/}
       </Box>
       <Box className={styles.newMessageSection}>
         <form onSubmit={handleSubmit(sendMessage)}>
