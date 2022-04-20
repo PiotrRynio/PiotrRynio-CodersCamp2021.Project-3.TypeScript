@@ -1,13 +1,12 @@
 @import "/src/assets/global-styles/_index.scss";
 
 .search {
-  position: relative;
   height: 40px;
-  margin-left: 0;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   border-radius: 5px;
+  align-self: flex-end;
+  margin-left: auto;
   background-color: rgba(255, 255, 255, 0.15);
 
   &:hover {
@@ -17,7 +16,7 @@
 
 .searchIconWrapper {
   height: 100%;
-  padding-left: 10px;
+  padding: 0 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +25,7 @@
 .searchInput {
   color: inherit;
   width: 100%;
-  padding: 4px 4px 4px 10px;
+  padding: 4px;
 
   @media (min-width: 500px) {
     & input {
