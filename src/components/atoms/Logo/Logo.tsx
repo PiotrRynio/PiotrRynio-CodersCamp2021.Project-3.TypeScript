@@ -3,17 +3,19 @@ import logoText from "assets/images/logoText.png";
 import logoIcon from "assets/images/logoIcon.png";
 
 type LogoProps = {
-  isTextLogo: boolean;
+  className?: string;
+  isTextLogo?: boolean;
+  height?: number;
 };
 
-export const Logo = ({ isTextLogo }: LogoProps) => {
+export const Logo = ({ className, isTextLogo, height }: LogoProps) => {
   const logoImage = isTextLogo ? logoText : logoIcon;
-
   return (
     <Box
+      className={className}
       component="img"
       sx={{
-        height: 27,
+        height: height ? height : 27,
       }}
       alt="inTouchLogo"
       src={logoImage}
