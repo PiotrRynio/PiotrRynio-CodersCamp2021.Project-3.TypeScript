@@ -16,7 +16,7 @@ export const ChatPage = () => {
       <div className={styles.main}>
         <div
           className={`${styles.leftSection} ${
-            width < 800 && side !== "left" ? styles.hide : ""
+            (width < 800 && side === "left") || width >= 800 ? "" : styles.hide
           }`}
         >
           Left Side
@@ -24,7 +24,7 @@ export const ChatPage = () => {
         </div>
         <div
           className={`${styles.chatContainer} ${
-            width < 800 && side !== "right" ? styles.hide : ""
+            (width < 800 && side === "right") || width >= 800 ? "" : styles.hide
           }`}
         >
           <ChatSection closeFunction={() => setSide("left")} />
