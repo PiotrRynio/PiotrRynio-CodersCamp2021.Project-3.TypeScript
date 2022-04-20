@@ -10,8 +10,19 @@ import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import styles from "./LeftSection.module.css";
 import Button from "@mui/material/Button";
+import { AddNewChatModal } from "../../molecules/AddNewChatModal/AddNewChatModal";
+import { useState } from "react";
 
 export const LeftSection = () => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
       <Box className={styles.searchSection}>
@@ -24,8 +35,8 @@ export const LeftSection = () => {
         />
       </Box>
       <Box>
-        chatsSection
         <List
+          className={styles.chatList}
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
           <ListItem alignItems="flex-start">
@@ -96,9 +107,16 @@ export const LeftSection = () => {
         </List>
       </Box>
       <Box className={styles.bottomButtonSection}>
-        <Button variant="contained" className={styles.button}>
+        <Button
+          variant="contained"
+          className={styles.button}
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
           Create new Chat
         </Button>
+        <AddNewChatModal open={open} handleClose={handleClose} />
       </Box>
     </>
   );

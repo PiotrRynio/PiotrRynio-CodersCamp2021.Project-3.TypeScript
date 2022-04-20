@@ -15,7 +15,8 @@
 }
 
 .chatContainer {
-  min-width: 85%;
+  border: 1px solid black;
+  min-width: 90%;
   height: 850px;
   margin-right: 120px;
   background-color: white;
@@ -36,7 +37,7 @@
 }
 .leftSection {
   color: #1976d2;
-  min-width: 25%;
+  min-width: 20%;
   margin-right: 2%;
   min-height: 100%;
   text-align: center;

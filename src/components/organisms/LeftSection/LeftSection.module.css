@@ -11,6 +11,10 @@
   border: black solid 1px;
 }
 
+.chatList {
+  min-width: 100%;
+}
+
 .bottomButtonSection {
   bottom: 0px;
   position: absolute;
