@@ -6,7 +6,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import classnames from "classnames";
 import { useEffect } from "react";
-import { useAuth } from "contexts";
+import { useAuth, useDatabase } from "contexts";
 import { Link, useNavigate } from "react-router-dom";
 
 type UserToFirebase = {
@@ -31,7 +31,8 @@ export const SignUpPage = () => {
     getValues,
     formState: { errors },
   } = useForm<IFormInput>();
-  const { currentUser, signUp, setUserName } = useAuth();
+  const { currentUser, signUp } = useAuth();
+  const { addUserToDatabase } = useDatabase();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,13 +63,19 @@ export const SignUpPage = () => {
     setLoading(true);
     if (password !== passwordConfirmation) return;
     try {
-      await signUp(emailAddress, password);
+      const { user: createdUser } = await signUp(emailAddress, password);
+      const newUser = {
+        firstName,
+        lastName,
+        emailAddress,
+        id: createdUser.uid,
+      };
+      await addUserToDatabase(newUser);
       setLoading(false);
       navigate("/chat");
     } catch {
       console.log("Can't to create an account");
     }
-    await setUserName(`${firstName} ${lastName}`);
   };
 
   const [loading, setLoading] = useState<boolean>(false);

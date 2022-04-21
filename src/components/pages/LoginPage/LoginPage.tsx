@@ -45,12 +45,11 @@ export const LoginPage = () => {
     password: classnames(styles.input, { [styles.error]: errors.password }),
   };
 
-  const createAccount: SubmitHandler<IFormInput> = async ({
+  const loginUser: SubmitHandler<IFormInput> = async ({
     emailAddress,
     password,
   }) => {
     setLoading(true);
-    // if (password !== passwordConfirmation) return;
     try {
       await login(emailAddress, password);
       navigate("/chat");
@@ -66,10 +65,7 @@ export const LoginPage = () => {
       <Box className={styles.contentBox}>
         <Logo height={100} />
         <h3 className={styles.header}>Log in</h3>
-        <form
-          className={styles.formGroup}
-          onSubmit={handleSubmit(createAccount)}
-        >
+        <form className={styles.formGroup} onSubmit={handleSubmit(loginUser)}>
           <Controller
             name="emailAddress"
             control={control}
