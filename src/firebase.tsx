@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "@firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: process.env["FIREBASE_API_KEY "],
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "intouch-ebc93.firebaseapp.com",
   projectId: "intouch-ebc93",
   storageBucket: "intouch-ebc93.appspot.com",
@@ -11,5 +12,5 @@ const firebaseConfig = {
 };
 
 export const firebaseApp = initializeApp(firebaseConfig);
-
+export const auth = getAuth(firebaseApp);
 export const dataBase = getFirestore(firebaseApp);

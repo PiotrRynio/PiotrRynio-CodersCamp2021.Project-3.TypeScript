@@ -1,8 +1,10 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Logo } from "components";
 import styles from "./WelcomePage.module.css";
+import { useNavigate } from "react-router-dom";
 
 export const WelcomePage = () => {
+  const navigate = useNavigate();
   return (
     <Box className={styles.background}>
       <Logo className={styles.logoMargin} height={160} />
@@ -16,12 +18,22 @@ export const WelcomePage = () => {
         </Typography>
       </Box>
       <Box className={styles.buttons}>
-        <Button variant="outlined" className={styles.button}>
-          Sign in
-        </Button>
-        <Button variant="outlined" className={styles.button}>
+        <button
+          className={styles.button}
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          Log in
+        </button>
+        <button
+          className={styles.button}
+          onClick={() => {
+            navigate("/signup");
+          }}
+        >
           Sign up
-        </Button>
+        </button>
       </Box>
     </Box>
   );

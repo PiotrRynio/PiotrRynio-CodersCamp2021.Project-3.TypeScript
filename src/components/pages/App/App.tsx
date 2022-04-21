@@ -1,25 +1,22 @@
 import { Box } from "@mui/material";
-import { SearchAppBar, ChatSection, LeftSection } from "components";
+import { ChatPage, SignUpPage, WelcomePage, LoginPage } from "components";
 import styles from "./App.module.css";
+import { AuthProvider, DatabaseProvider } from "contexts";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export function App() {
   return (
-    <>
-      <Box className={styles.background}>
-        <Box>
-          <Box>
-            <SearchAppBar />
-          </Box>
-          <div className={styles.main}>
-            <div className={styles.leftSection}>
-              <LeftSection />
-            </div>
-            <div className={styles.chatContainer}>
-              <ChatSection />
-            </div>
-          </div>
-        </Box>
-      </Box>
-    </>
+    <Router>
+      <AuthProvider>
+        <DatabaseProvider>
+          <Routes>
+            <Route path="/" element={<WelcomePage />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </DatabaseProvider>
+      </AuthProvider>
+    </Router>
   );
 }
