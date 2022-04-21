@@ -1,4 +1,4 @@
-import * as React from "react";
+import ReactDom from "react-dom";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -7,64 +7,105 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import ReactDom from "react-dom";
 import { Autocomplete, Chip } from "@mui/material";
 import { Logo } from "../../atoms";
 import styles from "./AddNewChatModal.module.css";
+import { useState } from "react";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { DocumentReference } from "@firebase/firestore-types";
 
 type ModalProps = {
-  open: boolean;
+  isOpen: boolean;
   handleClose: () => void;
 };
-export const AddNewChatModal = ({ open, handleClose }: ModalProps) => {
+
+type ModalInput = {
+  emails: string[];
+  chatName?: string;
+};
+
+export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
   // dodac useState dla email, na ich podstawie pokazywac okno wpisania nazwy czatu. dopiero wtedy aktywowac button do create chat.
+
+  const {
+    control,
+    handleSubmit,
+    register,
+    reset,
+    setValue,
+
+    formState: { errors },
+  } = useForm<ModalInput>();
 
   const sampleUserList = [
     { email: "agnieszka.przybylowska123@gmail.com" },
     { email: "agnieszka.przybylowska456@gmail.com" },
     { email: "agnieszka.przybylowska678@gmail.com" },
   ];
+  const onSubmit: SubmitHandler<ModalInput> = (data) => {
+    console.log("kurde nie dziala");
+    console.log(data.emails);
+  };
 
   const modal = (
-    <div>
-      <Dialog open={open} onClose={handleClose}>
-        <Box className={styles.titleSection}>
-          <DialogTitle>
-            Add new chat
-            <Logo className={styles.logo} />
-          </DialogTitle>
-        </Box>
-        <DialogContent>
-          <DialogContentText>
-            To create new chat please select participants below. Use email
-            address.
-          </DialogContentText>
-          <Autocomplete
-            multiple
-            id="tags-filled"
-            options={sampleUserList.map((option) => option.email)}
-            renderTags={(value: readonly string[], getTagProps) =>
-              value.map((option: string, index: number) => (
-                <Chip
-                  variant="outlined"
-                  label={option}
-                  {...getTagProps({ index })}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Box>
+        <Dialog open={isOpen} onClose={handleClose}>
+          <Box className={styles.titleSection}>
+            <DialogTitle>
+              Add new chat
+              <Logo className={styles.logo} />
+            </DialogTitle>
+          </Box>
+          <DialogContent>
+            <DialogContentText>
+              To create new chat please select participants below. <br /> Use
+              email address.
+            </DialogContentText>
+
+            <Controller
+              name="emails"
+              control={control}
+              render={(props) => (
+                <Autocomplete
+                  multiple
+                  limitTags={1}
+                  options={sampleUserList.map((option) => option.email)}
+                  getOptionLabel={(option: string) => option}
+                  onChange={(e, options) => setValue("emails", options)}
+                  renderTags={(value: readonly string[], getTagProps) =>
+                    value.map((option: string, index: number) => (
+                      <Chip
+                        variant="outlined"
+                        label={option}
+                        {...getTagProps({ index })}
+                      />
+                    ))
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} variant="filled" label="emails" />
+                  )}
                 />
-              ))
-            }
-            renderInput={(params) => (
-              <TextField {...params} variant="filled" label="emails" />
-            )}
-          />
-          <DialogContentText>Then name your chat.</DialogContentText>
-          <TextField variant="filled" label="Chat name" />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Create chat</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+              )}
+            />
+
+            <Box className={styles.chatNameInput}>
+              <DialogContentText>Then name your chat.</DialogContentText>
+            </Box>
+
+            <TextField variant="filled" label="Chat name" />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="error">
+              Cancel
+            </Button>
+            <Button color="success" onClick={handleSubmit(onSubmit)}>
+              Create chat
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    </form>
   );
 
   return ReactDom.createPortal(modal, document.body);

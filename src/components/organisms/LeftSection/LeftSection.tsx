@@ -1,4 +1,3 @@
-import * as React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
@@ -10,17 +9,17 @@ import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import styles from "./LeftSection.module.css";
 import Button from "@mui/material/Button";
-import { AddNewChatModal } from "../../molecules/AddNewChatModal/AddNewChatModal";
+import { AddNewChatModal } from "components";
 import { useState } from "react";
 
 export const LeftSection = () => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [isOpen, setOpen] = useState<boolean>(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (): void => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setOpen(false);
   };
   return (
@@ -46,7 +45,7 @@ export const LeftSection = () => {
             <ListItemText
               primary="Brunch this weekend?"
               secondary={
-                <React.Fragment>
+                <>
                   <Typography
                     sx={{ display: "inline" }}
                     component="span"
@@ -56,7 +55,7 @@ export const LeftSection = () => {
                     Ali Connors
                   </Typography>
                   {" — I'll be in your neighborhood doing errands this…"}
-                </React.Fragment>
+                </>
               }
             />
           </ListItem>
@@ -68,7 +67,7 @@ export const LeftSection = () => {
             <ListItemText
               primary="Summer BBQ"
               secondary={
-                <React.Fragment>
+                <>
                   <Typography
                     sx={{ display: "inline" }}
                     component="span"
@@ -78,7 +77,7 @@ export const LeftSection = () => {
                     to Scott, Alex, Jennifer
                   </Typography>
                   {" — Wish I could come, but I'm out of town this…"}
-                </React.Fragment>
+                </>
               }
             />
           </ListItem>
@@ -90,7 +89,7 @@ export const LeftSection = () => {
             <ListItemText
               primary="Oui Oui"
               secondary={
-                <React.Fragment>
+                <>
                   <Typography
                     sx={{ display: "inline" }}
                     component="span"
@@ -100,7 +99,7 @@ export const LeftSection = () => {
                     Sandra Adams
                   </Typography>
                   {" — Do you have Paris recommendations? Have you ever…"}
-                </React.Fragment>
+                </>
               }
             />
           </ListItem>
@@ -116,7 +115,7 @@ export const LeftSection = () => {
         >
           Create new Chat
         </Button>
-        <AddNewChatModal open={open} handleClose={handleClose} />
+        <AddNewChatModal isOpen={isOpen} handleClose={handleClose} />
       </Box>
     </>
   );
