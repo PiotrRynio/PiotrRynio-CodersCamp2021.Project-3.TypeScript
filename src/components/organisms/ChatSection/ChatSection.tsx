@@ -2,7 +2,7 @@ import { Button, Box, Typography, TextField, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { collection, addDoc } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { dataBase } from "../../../assets/firebase";
+import { dataBase } from "../../../firebase";
 import { SentMessagesList } from "components";
 import styles from "./ChatSection.module.css";
 import { DocumentReference } from "@firebase/firestore-types";
