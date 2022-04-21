@@ -10,7 +10,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Autocomplete, Chip } from "@mui/material";
 import { Logo } from "../../atoms";
 import styles from "./AddNewChatModal.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { DocumentReference } from "@firebase/firestore-types";
 
@@ -42,10 +42,19 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
     { email: "agnieszka.przybylowska456@gmail.com" },
     { email: "agnieszka.przybylowska678@gmail.com" },
   ];
-  const onSubmit: SubmitHandler<ModalInput> = (data) => {
+  const onSubmit: SubmitHandler<ModalInput> = async (data) => {
     console.log("kurde nie dziala");
     console.log(data.emails);
   };
+
+  useEffect(() => {
+    register("emails", {
+      validate: (value) => !!value?.length || "This is required.",
+    });
+    register("chatName", {
+      validate: (value) => !!value?.length || "This is required.",
+    });
+  }, [register]);
 
   const modal = (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -72,7 +81,6 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
                   limitTags={1}
                   options={sampleUserList.map((option) => option.email)}
                   getOptionLabel={(option: string) => option}
-                  onChange={(e, options) => setValue("emails", options)}
                   renderTags={(value: readonly string[], getTagProps) =>
                     value.map((option: string, index: number) => (
                       <Chip
@@ -83,17 +91,28 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
                     ))
                   }
                   renderInput={(params) => (
-                    <TextField {...params} variant="filled" label="emails" />
+                    <TextField
+                      {...params}
+                      variant="filled"
+                      label="emails"
+                      error={Boolean(errors?.emails)}
+                    />
                   )}
+                  onChange={(e, options) => setValue("emails", options)}
                 />
               )}
             />
-
             <Box className={styles.chatNameInput}>
               <DialogContentText>Then name your chat.</DialogContentText>
             </Box>
 
-            <TextField variant="filled" label="Chat name" />
+            <TextField
+              name="chatName"
+              variant="filled"
+              label="Chat name"
+              error={Boolean(errors?.chatName)}
+              onChange={(e) => setValue("chatName", e.target.value)}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="error">
