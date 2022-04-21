@@ -10,9 +10,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Autocomplete, Chip } from "@mui/material";
 import { Logo } from "../../atoms";
 import styles from "./AddNewChatModal.module.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { DocumentReference } from "@firebase/firestore-types";
 
 type ModalProps = {
   isOpen: boolean;
@@ -25,13 +24,10 @@ type ModalInput = {
 };
 
 export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
-  // dodac useState dla email, na ich podstawie pokazywac okno wpisania nazwy czatu. dopiero wtedy aktywowac button do create chat.
-
   const {
     control,
     handleSubmit,
     register,
-    reset,
     setValue,
 
     formState: { errors },
@@ -43,8 +39,8 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
     { email: "agnieszka.przybylowska678@gmail.com" },
   ];
   const onSubmit: SubmitHandler<ModalInput> = async (data) => {
-    console.log("kurde nie dziala");
     console.log(data.emails);
+    console.log(data.chatName);
   };
 
   useEffect(() => {
