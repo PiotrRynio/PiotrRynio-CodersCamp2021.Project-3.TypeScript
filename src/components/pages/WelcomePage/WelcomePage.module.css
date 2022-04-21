@@ -42,6 +42,7 @@
   width: 300px;
   color: #ffffff;
   background: #00acc1;
+  border-radius: 10px;
 }
 
 .button:hover {

@@ -7,6 +7,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import classnames from "classnames";
 import { useEffect } from "react";
 import { useAuth } from "contexts";
+import { Link, useNavigate } from "react-router-dom";
 
 type UserToFirebase = {
   emailAddress: string;
@@ -30,7 +31,14 @@ export const SignUpPage = () => {
     getValues,
     formState: { errors },
   } = useForm<IFormInput>();
-  const { signUp, setUserName } = useAuth();
+  const { currentUser, signUp, setUserName } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/chat");
+    }
+  }, []);
 
   const classNameList = {
     firstName: classnames(styles.input, { [styles.error]: errors.firstName }),
@@ -55,11 +63,12 @@ export const SignUpPage = () => {
     if (password !== passwordConfirmation) return;
     try {
       await signUp(emailAddress, password);
+      setLoading(false);
+      navigate("/chat");
     } catch {
       console.log("Can't to create an account");
     }
     await setUserName(`${firstName} ${lastName}`);
-    setLoading(false);
   };
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -68,8 +77,7 @@ export const SignUpPage = () => {
     <Box className={styles.background}>
       <Box className={styles.contentBox}>
         <Logo height={100} />
-        {/*<ProgresBars />*/}
-        <h3>SignUp</h3>
+        <h3 className={styles.header}>SignUp</h3>
         <form
           className={styles.formGroup}
           onSubmit={handleSubmit(createAccount)}
@@ -243,7 +251,12 @@ export const SignUpPage = () => {
             Sign Up
           </button>
         </form>
-        <p>Already have an account? Sign In.</p>
+        <p>
+          Already have an account?{" "}
+          <Link className={styles.link} to={"/login"}>
+            Log In
+          </Link>
+        </p>
         <p className={styles.copyright}>Copyright ©CodersCamp 2021</p>
       </Box>
     </Box>
