@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState } from "react";
 
 type UserContextType = {
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   isAuth: boolean;
-  email?: string;
+  email: string;
   setFirstName?: (firstName: string) => void;
   setLastName?: (lastName: string) => void;
   setIsAuth: (isAuth: boolean) => void;
@@ -26,19 +26,21 @@ export const UserContext = createContext<UserContextType>(
   userContextDefaultValues
 );
 
-export const AppProviders = ({ children }: { children: React.ReactNode }) => {
+export const UserContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [isAuth, setIsAuth] = useState<boolean>(
     userContextDefaultValues.isAuth
   );
   const [firstName, setFirstName] = useState<string>(
-    userContextDefaultValues.firstName || ""
+    userContextDefaultValues.firstName
   );
   const [lastName, setLastName] = useState<string>(
-    userContextDefaultValues.lastName || ""
+    userContextDefaultValues.lastName
   );
-  const [email, setEmail] = useState<string>(
-    userContextDefaultValues.email || ""
-  );
+  const [email, setEmail] = useState<string>(userContextDefaultValues.email);
 
   return (
     <UserContext.Provider
