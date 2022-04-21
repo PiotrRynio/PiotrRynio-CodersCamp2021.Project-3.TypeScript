@@ -2,11 +2,21 @@ import { Box } from "@mui/material";
 import { ChatSection, SearchBar } from "components";
 import styles from "./ChatPage.module.css";
 import useWindowWidth from "./useWindowWidth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "contexts";
+import { useNavigate } from "react-router-dom";
 
 export const ChatPage = () => {
   const { width } = useWindowWidth();
   const [side, setSide] = useState<"left" | "right">("left");
+  const navigate = useNavigate();
+  const { currentUser } = useAuth();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <Box className={styles.background}>
