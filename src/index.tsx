@@ -4,6 +4,7 @@ import "./index.scss";
 import { App } from "./components/pages/App/App";
 import { UserContextProvider } from "./providers/AppProviders";
 
+
 ReactDOM.render(
   <React.StrictMode>
     <UserContextProvider>
