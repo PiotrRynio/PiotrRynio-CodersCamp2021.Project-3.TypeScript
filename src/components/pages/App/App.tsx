@@ -1,7 +1,12 @@
 import { Box } from "@mui/material";
 import { ChatPage, SignUpPage } from "components";
 import styles from "./App.module.css";
+import { AuthProvider } from "contexts";
 
 export function App() {
-  return <SignUpPage />;
+  return (
+    <AuthProvider>
+      <SignUpPage />
+    </AuthProvider>
+  );
 }

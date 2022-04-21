@@ -41,6 +41,10 @@
   border: 1px solid #777777;
 }
 
+.error {
+  border: 2px solid #af0000;
+}
+
 .button {
   width: 100%;
   margin: 5px;
@@ -55,4 +59,14 @@
 .copyright {
   font-size: 14px;
   color: #777777;
+}
+
+.errorMessage {
+  margin-left: 8px;
+  color: #af0000;
+}
+
+.errorMessage::before {
+  display: inline;
+  content: "⚠ ";
 }
