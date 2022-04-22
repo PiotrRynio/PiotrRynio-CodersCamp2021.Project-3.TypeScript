@@ -1,8 +1,10 @@
 import { ReactNode } from "react";
 import {
   ChatTitleTypography,
+  ConversationPreviewAuthorTypography,
   MessageContentTypography,
   RegularTypography,
+  SectionTitleTypography,
 } from "./TypographyVariants";
 import { TypographyVariant } from ".";
 
@@ -19,5 +21,13 @@ export const Typography = ({ variant, children }: TypographyProps) => {
       return <ChatTitleTypography>{children}</ChatTitleTypography>;
     case TypographyVariant.REGULAR:
       return <RegularTypography>{children}</RegularTypography>;
+    case TypographyVariant.CONVERSATION_PREVIEW_AUTHOR:
+      return (
+        <ConversationPreviewAuthorTypography>
+          {children}
+        </ConversationPreviewAuthorTypography>
+      );
+    case TypographyVariant.SECTION_TITLE:
+      return <SectionTitleTypography>{children}</SectionTitleTypography>;
   }
 };
