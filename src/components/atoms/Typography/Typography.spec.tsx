@@ -63,7 +63,8 @@ describe("<Typography> component", () => {
     );
 
     // then
-    const textComponent = screen.getByText(/test text/i);
+    const textComponent = screen.getByRole("heading", { level: 3 });
+    expect(textComponent).toHaveTextContent(/test text/i);
     expect(textComponent).toBeInTheDocument();
   });
 });
