@@ -11,13 +11,11 @@ import styles from "./LeftSection.module.css";
 import Button from "@mui/material/Button";
 import { AddNewChatModal } from "components";
 import { useState } from "react";
-
+import { useDatabase } from "contexts";
 export const LeftSection = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
-  const handleClickOpen = (): void => {
-    setOpen(true);
-  };
+  const { users } = useDatabase();
 
   const handleClose = (): void => {
     setOpen(false);

@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { dataBase } from "../firebase";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 const DatabaseContext = React.createContext<any>(null);
+const usersCollection = collection(dataBase, "users");
 
 type User = {
   firstName: string;
@@ -17,6 +19,7 @@ export const useDatabase = () => {
 
 export const DatabaseProvider: React.FC = ({ children }) => {
   const usersCollection = collection(dataBase, "users");
+  const [users, loading, error] = useCollectionData(usersCollection);
 
   const addUserToDatabase = (user: User) => {
     return addDoc(usersCollection, user);
@@ -24,6 +27,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
 
   const value = {
     addUserToDatabase,
+    users,
   };
 
   return (
