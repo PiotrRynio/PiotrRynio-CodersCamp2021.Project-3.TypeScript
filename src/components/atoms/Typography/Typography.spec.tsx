@@ -29,4 +29,29 @@ describe("<Typography> component", () => {
     expect(textComponent).toHaveTextContent(/test text/i);
     expect(textComponent).toBeInTheDocument();
   });
+
+  it("should display chat title text, if component is rendered", () => {
+    // when
+    render(
+      <Typography variant={TypographyVariant.CHAT_TITLE}>{testText}</Typography>
+    );
+
+    // then
+    const textComponent = screen.getByRole("heading", { level: 5 });
+    expect(textComponent).toHaveTextContent(/test text/i);
+    expect(textComponent).toBeInTheDocument();
+  });
+
+  it("should display conversation preview author, if component is rendered", () => {
+    // when
+    render(
+      <Typography variant={TypographyVariant.CONVERSATION_PREVIEW_AUTHOR}>
+        {testText}
+      </Typography>
+    );
+
+    // then
+    const textComponent = screen.getByText(/test text/i);
+    expect(textComponent).toBeInTheDocument();
+  });
 });
