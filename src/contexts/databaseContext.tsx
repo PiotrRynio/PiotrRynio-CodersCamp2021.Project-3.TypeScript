@@ -19,7 +19,7 @@ export const useDatabase = () => {
 
 export const DatabaseProvider: React.FC = ({ children }) => {
   const usersCollection = collection(dataBase, "users");
-  const [users, loading, error] = useCollectionData(usersCollection);
+  const [users] = useCollectionData(usersCollection);
 
   const addUserToDatabase = (user: User) => {
     return addDoc(usersCollection, user);

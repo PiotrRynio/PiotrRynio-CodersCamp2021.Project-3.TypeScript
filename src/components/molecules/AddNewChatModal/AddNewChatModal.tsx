@@ -12,6 +12,7 @@ import { Logo } from "../../atoms";
 import styles from "./AddNewChatModal.module.css";
 import { useEffect } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useDatabase } from "contexts";
 
 type ModalProps = {
   isOpen: boolean;
@@ -24,23 +25,24 @@ type ModalInput = {
 };
 
 export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
+  const { users } = useDatabase();
+
   const {
     control,
     handleSubmit,
     register,
     setValue,
-
     formState: { errors },
   } = useForm<ModalInput>();
 
-  const sampleUserList = [
-    { email: "agnieszka.przybylowska123@gmail.com" },
-    { email: "agnieszka.przybylowska456@gmail.com" },
-    { email: "agnieszka.przybylowska678@gmail.com" },
-  ];
+  const usersEmailsList: string[] = users
+    ? users.map((user: any) => user.emailAddress)
+    : [];
+
   const onSubmit: SubmitHandler<ModalInput> = async (data) => {
     console.log(data.emails);
     console.log(data.chatName);
+    //tu bedzie tworzenie encji w db
   };
 
   useEffect(() => {
@@ -75,7 +77,7 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
                 <Autocomplete
                   multiple
                   limitTags={1}
-                  options={sampleUserList.map((option) => option.email)}
+                  options={usersEmailsList.map((option) => option)}
                   getOptionLabel={(option: string) => option}
                   renderTags={(value: readonly string[], getTagProps) =>
                     value.map((option: string, index: number) => (
