@@ -64,7 +64,8 @@ export const LoginPage = () => {
     <Box className={styles.background}>
       <Box className={styles.contentBox}>
         <Logo height={100} />
-        <h3 className={styles.header}>Log in</h3>
+        <h3 className={styles.header}>Log in</h3> // TODO: change for Typography
+        component
         <form className={styles.formGroup} onSubmit={handleSubmit(loginUser)}>
           <Controller
             name="emailAddress"
@@ -128,7 +129,8 @@ export const LoginPage = () => {
             Sign up
           </Link>
         </p>
-        <p className={styles.copyright}>Copyright ©CodersCamp 2021</p>
+        <p className={styles.copyright}>Copyright ©CodersCamp 2021</p> // TODO:
+        change for Typography component (variant: overline)
       </Box>
     </Box>
   );

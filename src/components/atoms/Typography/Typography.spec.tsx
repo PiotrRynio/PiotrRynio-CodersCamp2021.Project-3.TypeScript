@@ -54,4 +54,17 @@ describe("<Typography> component", () => {
     const textComponent = screen.getByText(/test text/i);
     expect(textComponent).toBeInTheDocument();
   });
+
+  it("should display section title, if component is rendered", () => {
+    // when
+    render(
+      <Typography variant={TypographyVariant.SECTION_TITLE}>
+        {testText}
+      </Typography>
+    );
+
+    // then
+    const textComponent = screen.getByText(/test text/i);
+    expect(textComponent).toBeInTheDocument();
+  });
 });
