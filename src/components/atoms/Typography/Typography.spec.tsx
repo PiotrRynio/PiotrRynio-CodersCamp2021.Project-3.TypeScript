@@ -5,7 +5,16 @@ import { TypographyVariant } from "./TypographyVariant";
 describe("<Typography> component", () => {
   const testText = "test text";
 
-  it("should display message content text, if component is rendered", () => {
+  it("should display default typography, if component is rendered", () => {
+    // when
+    render(<Typography>{testText}</Typography>);
+
+    // then
+    const textComponent = screen.getByText(/test text/i);
+    expect(textComponent).toBeInTheDocument();
+  });
+
+  it("should display message content, if component is rendered", () => {
     // when
     render(
       <Typography variant={TypographyVariant.MESSAGE_CONTENT}>
@@ -18,19 +27,7 @@ describe("<Typography> component", () => {
     expect(textComponent).toBeInTheDocument();
   });
 
-  it("should display chat title text, if component is rendered", () => {
-    // when
-    render(
-      <Typography variant={TypographyVariant.CHAT_TITLE}>{testText}</Typography>
-    );
-
-    // then
-    const textComponent = screen.getByRole("heading", { level: 5 });
-    expect(textComponent).toHaveTextContent(/test text/i);
-    expect(textComponent).toBeInTheDocument();
-  });
-
-  it("should display chat title text, if component is rendered", () => {
+  it("should display chat title, if component is rendered", () => {
     // when
     render(
       <Typography variant={TypographyVariant.CHAT_TITLE}>{testText}</Typography>
