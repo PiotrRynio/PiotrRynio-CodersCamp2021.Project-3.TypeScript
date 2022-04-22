@@ -20,9 +20,7 @@ export const ChatPage = () => {
 
   return (
     <Box className={styles.background}>
-      <Box>
-        <SearchBar />
-      </Box>
+      <SearchBar />
       <div className={styles.main}>
         <div
           className={`${styles.leftSection} ${
