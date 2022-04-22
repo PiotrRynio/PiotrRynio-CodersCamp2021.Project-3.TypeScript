@@ -1,2 +1,2 @@
 export * from "./MessageContentTypography";
-export * from "./DefaultTypography";
+export * from "./RegularTypography";
