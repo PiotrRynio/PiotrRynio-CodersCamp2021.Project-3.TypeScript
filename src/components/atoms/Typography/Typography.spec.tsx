@@ -5,9 +5,11 @@ import { TypographyVariant } from "./TypographyVariant";
 describe("<Typography> component", () => {
   const testText = "test text";
 
-  it("should display default typography, if component is rendered", () => {
+  it("should display regular typography, if component is rendered", () => {
     // when
-    render(<Typography>{testText}</Typography>);
+    render(
+      <Typography variant={TypographyVariant.REGULAR}>{testText}</Typography>
+    );
 
     // then
     const textComponent = screen.getByText(/test text/i);
