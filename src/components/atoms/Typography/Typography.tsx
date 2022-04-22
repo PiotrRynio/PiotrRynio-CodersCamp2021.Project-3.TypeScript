@@ -1,7 +1,17 @@
+import { ReactNode } from "react";
+import { TypographyVariant } from "./TypographyVariant";
+import { MessageContentTypography } from "./TypographyVariants";
+
 export type TypographyProps = {
-  content: string;
+  variant: TypographyVariant;
+  children?: ReactNode;
 };
 
-export const Typography = ({ content }: TypographyProps) => {
-  return <span>{content}</span>;
+export const Typography = ({ variant, children }: TypographyProps) => {
+  switch (variant) {
+    case TypographyVariant.MESSAGE_CONTENT:
+      return <MessageContentTypography>{children}</MessageContentTypography>;
+    // default:
+    //   return <MuiTypography>{children}</MuiTypography>;
+  }
 };
