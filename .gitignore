@@ -1,5 +1,6 @@
 .idea
-.env.local
+.local.env
+
 # dependencies
 /node_modules
 /.pnp
