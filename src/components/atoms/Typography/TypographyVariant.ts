@@ -1,4 +1,4 @@
-export enum TypographyTag {
+export enum TypographyVariant {
   REGULAR = "REGULAR",
   OVERLINE = "OVERLINE",
   HEADING_2 = "HEADING_2",
