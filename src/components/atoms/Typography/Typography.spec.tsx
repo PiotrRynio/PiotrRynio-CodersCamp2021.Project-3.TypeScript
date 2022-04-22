@@ -1,6 +1,6 @@
 import { render, screen } from "test-utils";
 import { Typography } from "./Typography";
-import { TypographyVariant } from "./TypographyVariant";
+import { TypographyVariant } from ".";
 
 describe("<Typography> component", () => {
   const testText = "test text";

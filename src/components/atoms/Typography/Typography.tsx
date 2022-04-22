@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import {
-  RegularTypography,
   ChatTitleTypography,
   MessageContentTypography,
+  RegularTypography,
 } from "./TypographyVariants";
-import { TypographyVariant } from "./TypographyVariant";
+import { TypographyVariant } from ".";
 
 export type TypographyProps = {
   variant: TypographyVariant;
