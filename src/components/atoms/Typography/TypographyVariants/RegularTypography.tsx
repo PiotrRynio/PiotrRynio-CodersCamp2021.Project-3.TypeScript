@@ -1,10 +1,6 @@
-import { ReactNode } from "react";
 import MuiTypography from "@mui/material/Typography";
+import { TypographyVariantsProps } from "./TypographyVariantsProps";
 
-export type RegularTypographyProps = {
-  children?: ReactNode;
-};
-
-export const RegularTypography = ({ children }: RegularTypographyProps) => (
+export const RegularTypography = ({ children }: TypographyVariantsProps) => (
   <MuiTypography>{children}</MuiTypography>
 );

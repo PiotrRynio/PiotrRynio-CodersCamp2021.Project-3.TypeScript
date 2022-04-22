@@ -1,6 +1,10 @@
 import { ReactNode } from "react";
+import {
+  RegularTypography,
+  ChatTitleTypography,
+  MessageContentTypography,
+} from "./TypographyVariants";
 import { TypographyVariant } from "./TypographyVariant";
-import { MessageContentTypography } from "./TypographyVariants";
 
 export type TypographyProps = {
   variant: TypographyVariant;
@@ -11,7 +15,9 @@ export const Typography = ({ variant, children }: TypographyProps) => {
   switch (variant) {
     case TypographyVariant.MESSAGE_CONTENT:
       return <MessageContentTypography>{children}</MessageContentTypography>;
-    // default:
-    //   return <MuiTypography>{children}</MuiTypography>;
+    case TypographyVariant.CHAT_TITLE:
+      return <ChatTitleTypography>{children}</ChatTitleTypography>;
+    case TypographyVariant.REGULAR:
+      return <RegularTypography>{children}</RegularTypography>;
   }
 };

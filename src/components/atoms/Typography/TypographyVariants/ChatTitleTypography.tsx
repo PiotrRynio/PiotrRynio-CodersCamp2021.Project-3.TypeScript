@@ -1,10 +1,8 @@
 import MuiTypography from "@mui/material/Typography";
 import { TypographyVariantsProps } from "./TypographyVariantsProps";
 
-export const MessageContentTypography = ({
-  children,
-}: TypographyVariantsProps) => (
-  <MuiTypography variant="body1" noWrap component="div">
+export const ChatTitleTypography = ({ children }: TypographyVariantsProps) => (
+  <MuiTypography variant="h5" noWrap component="div" fontWeight={700}>
     {children}
   </MuiTypography>
 );
