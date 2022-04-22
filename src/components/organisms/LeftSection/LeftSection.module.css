@@ -1,0 +1,30 @@
+.searchSection {
+  height: 80px;
+}
+
+.searchChatField {
+  width: 100%;
+  border: #3f51b5 solid 1px !important;
+}
+.chatsSection {
+  height: 680px;
+  border: black solid 1px;
+}
+
+.chatList {
+  min-width: 100%;
+}
+
+.bottomButtonSection {
+  bottom: 0px;
+  position: absolute;
+
+  height: 60px;
+  width: 100%;
+}
+
+.button {
+  width: 60%;
+  height: 100%;
+  backgroundcolor: black;
+}
