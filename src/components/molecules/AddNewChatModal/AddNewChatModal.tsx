@@ -21,11 +21,16 @@ type ModalProps = {
 
 type ModalInput = {
   emails: string[];
-  chatName?: string;
+  chatName: string;
 };
 
+type Chat = {
+  chatName: string;
+  users: string[];
+  messages?: string[];
+};
 export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
-  const { users } = useDatabase();
+  const { users, addChatToDatabase } = useDatabase();
 
   const {
     control,
@@ -39,10 +44,12 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
     ? users.map((user: any) => user.emailAddress)
     : [];
 
-  const onSubmit: SubmitHandler<ModalInput> = async (data) => {
+  const onSubmit: SubmitHandler<ModalInput> = async (data): Promise<void> => {
     console.log(data.emails);
     console.log(data.chatName);
-    //tu bedzie tworzenie encji w db
+    const createdChat: Chat = { chatName: data.chatName, users: data.emails };
+    //zamiast email dac id
+    addChatToDatabase(createdChat);
   };
 
   useEffect(() => {
