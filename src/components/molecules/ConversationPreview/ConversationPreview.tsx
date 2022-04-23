@@ -4,7 +4,7 @@ import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import { UserAvatar, Typography, TypographyVariant } from "components";
 
-type ConversationPreviewProps = {
+export type ConversationPreviewProps = {
   conversationTitle: string;
   userFirstName: string;
   userLastName: string;
@@ -12,7 +12,7 @@ type ConversationPreviewProps = {
   lastMessage?: string;
 };
 
-const ConversationPreview = ({
+export const ConversationPreview = ({
   conversationTitle,
   userFirstName,
   userLastName,
