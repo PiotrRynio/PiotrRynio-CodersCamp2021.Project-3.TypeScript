@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { ChatPage, SignUpPage, WelcomePage, LoginPage } from "components";
-import styles from "./App.module.css";
 import { AuthProvider, DatabaseProvider } from "contexts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
