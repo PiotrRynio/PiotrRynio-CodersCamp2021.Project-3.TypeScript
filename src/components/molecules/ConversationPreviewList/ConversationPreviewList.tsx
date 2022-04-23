@@ -19,7 +19,7 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
   ];
 
   const { data: conversationPreviewList } = useQuery(
-    "exampleKey",
+    "",
     () => {
       return Promise.all(chatsIds.map((chatId) => getChatById(chatId)));
     },
