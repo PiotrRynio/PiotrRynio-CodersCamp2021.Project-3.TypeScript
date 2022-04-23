@@ -30,7 +30,7 @@ type Chat = {
   messages?: string[];
 };
 export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
-  const { users, addChatToDatabase } = useDatabase();
+  const { users, addChatToDatabase, getUserByEmail } = useDatabase();
 
   const {
     control,
@@ -44,12 +44,21 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
     ? users.map((user: any) => user.emailAddress)
     : [];
 
+  const getUserIDByEmail = (email: string): string => {
+    const foundUser = users.find((user: any) => user.emailAddress === email);
+    console.log(foundUser.id);
+    return foundUser?.id;
+  };
+
   const onSubmit: SubmitHandler<ModalInput> = async (data): Promise<void> => {
-    console.log(data.emails);
-    console.log(data.chatName);
+    //console.log(data.emails[0]);
+    //console.log(data.chatName);
+    const usersIds = data.emails.map((email) => {
+      getUserIDByEmail(email);
+    });
+    console.log("XXXXXXXXXXXXXXXXX");
     const createdChat: Chat = { chatName: data.chatName, users: data.emails };
     //zamiast email dac id
-    addChatToDatabase(createdChat);
   };
 
   useEffect(() => {
