@@ -1,13 +1,5 @@
 import React, { useContext } from "react";
-import {
-  collection,
-  addDoc,
-  onSnapshot,
-  getDoc,
-  getDocs,
-  where,
-  query,
-} from "firebase/firestore";
+import { collection, addDoc, getDocs, updateDoc } from "firebase/firestore";
 import { dataBase } from "../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
@@ -37,18 +29,6 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
 
-  console.log();
-  console.log("USERS");
-  console.log(users);
-  console.log("CHATS");
-  console.log(chats);
-  // console.log("USERS COLLECTION");
-  // console.log(usersCollection);
-  // console.log("CHATS COLLECTION");
-  // console.log(chatsCollection);
-  // console.log("DATABASE");
-  // console.log(dataBase);*/
-
   const addUserToDatabase = (user: User) => {
     return addDoc(usersCollection, user);
   };
@@ -63,8 +43,6 @@ export const DatabaseProvider: React.FC = ({ children }) => {
       (doc) => ({ ...doc.data(), id: doc.id } as User)
     );
     const user = allUsers.find((user) => user.emailAddress === email);
-    console.log("USER");
-    console.log(user);
     return user;
   };
 
