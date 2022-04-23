@@ -3,6 +3,7 @@ import List from "@mui/material/List";
 import { useDatabase } from "contexts";
 import { ConversationPreview } from "components";
 import styles from "./ConversationPreviewList.module.scss";
+import { useQuery } from "react-query";
 
 export type ConversationPreviewListProps = {
   // propsName: any;
@@ -10,50 +11,38 @@ export type ConversationPreviewListProps = {
 
 export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
   const { getChatById } = useDatabase();
+  // chatsId in array of string
+  const chatsIds = [
+    "Xhsh1FHPndJfzbk66HUA",
+    "Xhsh1FHPndJfzbk66HUA",
+    "Xhsh1FHPndJfzbk66HUA",
+  ];
 
-  const chatId = getChatById("33EnZBdHNNI8yt8WNgwf");
-  console.log("chatId, ", chatId);
-  console.log(chatId);
+  const { data: conversationPreviewList } = useQuery(
+    "exampleKey",
+    () => {
+      return Promise.all(chatsIds.map((chatId) => getChatById(chatId)));
+    },
+    {}
+  );
+
+  console.log(conversationPreviewList);
 
   return (
     <List className={styles.chatList}>
-      {conversationPreviewList.map((conversationPreview, index) => (
-        <ConversationPreview
-          key={index}
-          conversationTitle={conversationPreview.conversationTitle}
-          userFirstName={conversationPreview.userFirstName}
-          userLastName={conversationPreview.userLastName}
-          userAvatar={conversationPreview.userAvatar}
-          lastMessage={conversationPreview.lastMessage}
-        />
-      ))}
+      {conversationPreviewList &&
+        conversationPreviewList.map((conversationPreview, index) => (
+          <ConversationPreview
+            key={index}
+            conversationTitle={conversationPreview.chatName}
+            userFirstName={conversationPreview.userFirstName}
+            userLastName={conversationPreview.userLastName}
+            userAvatar={conversationPreview.userAvatar}
+            lastMessage={conversationPreview.lastMessage}
+          />
+        ))}
     </List>
   );
 };
 
 export default ConversationPreviewList;
-
-// 3 elements array of objects with conversationTitle, userFirstName, userLastName, userAvatar, lastMessage
-const conversationPreviewList = [
-  {
-    conversationTitle: "Conversation 1",
-    userFirstName: "John",
-    userLastName: "Doe",
-    userAvatar: "https://via.placeholder.com/150",
-    lastMessage: "Hello",
-  },
-  {
-    conversationTitle: "Conversation 2",
-    userFirstName: "Jane",
-    userLastName: "Doe",
-    userAvatar: "https://via.placeholder.com/150",
-    lastMessage: "Hello",
-  },
-  {
-    conversationTitle: "Conversation 3",
-    userFirstName: "John",
-    userLastName: "Doe",
-    userAvatar: "https://via.placeholder.com/150",
-    lastMessage: "Hello",
-  },
-];

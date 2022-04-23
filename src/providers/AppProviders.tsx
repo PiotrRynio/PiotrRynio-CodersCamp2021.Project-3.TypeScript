@@ -1,4 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 type UserContextType = {
   firstName: string;
@@ -50,22 +53,24 @@ export const UserContextProvider = ({
   const [chats, setChats] = useState<string[]>(userContextDefaultValues.chats);
 
   return (
-    <UserContext.Provider
-      value={{
-        isAuth,
-        setIsAuth,
-        firstName,
-        setFirstName,
-        lastName,
-        setLastName,
-        email,
-        setEmail,
-        chats,
-        setChats,
-      }}
-    >
-      {children}
-    </UserContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <UserContext.Provider
+        value={{
+          isAuth,
+          setIsAuth,
+          firstName,
+          setFirstName,
+          lastName,
+          setLastName,
+          email,
+          setEmail,
+          chats,
+          setChats,
+        }}
+      >
+        {children}
+      </UserContext.Provider>
+    </QueryClientProvider>
   );
 };
 
