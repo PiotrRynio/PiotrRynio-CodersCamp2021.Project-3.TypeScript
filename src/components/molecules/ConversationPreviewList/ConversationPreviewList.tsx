@@ -9,7 +9,7 @@ export type ConversationPreviewListProps = {
 };
 
 export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
-  const { getChat } = useDatabase();
+  const { getChatById } = useDatabase();
 
   const chatId = getChatById("33EnZBdHNNI8yt8WNgwf");
   console.log("chatId, ", chatId);
