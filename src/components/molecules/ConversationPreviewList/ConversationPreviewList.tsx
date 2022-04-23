@@ -1,6 +1,8 @@
 import React from "react";
-import { ConversationPreview } from "../ConversationPreview/ConversationPreview";
+import List from "@mui/material/List";
 import { useDatabase } from "contexts";
+import { ConversationPreview } from "components";
+import styles from "./ConversationPreviewList.module.scss";
 
 export type ConversationPreviewListProps = {
   // propsName: any;
@@ -13,7 +15,7 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
   //get chat by id
 
   return (
-    <div>
+    <List className={styles.chatList}>
       {conversationPreviewList.map((conversationPreview, index) => (
         <ConversationPreview
           key={index}
@@ -24,7 +26,7 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
           lastMessage={conversationPreview.lastMessage}
         />
       ))}
-    </div>
+    </List>
   );
 };
 
