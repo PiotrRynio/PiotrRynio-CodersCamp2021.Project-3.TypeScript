@@ -9,6 +9,9 @@ export type ConversationPreviewListProps = {
 export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
   const { users, addChatToDatabase, getUserByEmail, addChatInUserChats } =
     useDatabase();
+
+  //get chat by id
+
   return (
     <div>
       {conversationPreviewList.map((conversationPreview, index) => (
