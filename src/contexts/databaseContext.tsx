@@ -103,7 +103,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     getUserByEmail,
     addChatInUserChats,
     users,
-    getChat,
+    getChatById,
   };
 
   return (
