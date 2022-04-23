@@ -62,9 +62,9 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     };
     console.log("updatedUSER:", updatedUser);
 
-    const docTemp = doc(dataBase, "users", user.id);
-    await updateDoc(docTemp, {
-      ...updatedUser,
+    const docUserToUpdate = doc(dataBase, "users", user.id);
+    await updateDoc(docUserToUpdate, {
+      chats: [...user.chats, chatId],
     });
   };
 
