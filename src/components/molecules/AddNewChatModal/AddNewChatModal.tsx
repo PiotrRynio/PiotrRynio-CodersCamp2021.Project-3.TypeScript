@@ -53,6 +53,7 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
       users: await Promise.all(users),
     };
     await addChatToDatabase(chat);
+    handleClose();
   };
 
   useEffect(() => {
