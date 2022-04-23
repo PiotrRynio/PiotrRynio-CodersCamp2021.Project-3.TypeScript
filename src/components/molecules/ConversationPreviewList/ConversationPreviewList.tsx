@@ -9,10 +9,11 @@ export type ConversationPreviewListProps = {
 };
 
 export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
-  const { users, addChatToDatabase, getUserByEmail, addChatInUserChats } =
-    useDatabase();
+  const { getChat } = useDatabase();
 
-  //get chat by id
+  const chatId = getChatById("33EnZBdHNNI8yt8WNgwf");
+  console.log("chatId, ", chatId);
+  console.log(chatId);
 
   return (
     <List className={styles.chatList}>
