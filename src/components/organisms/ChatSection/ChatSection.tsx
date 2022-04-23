@@ -1,13 +1,14 @@
-import { Button, Box, Typography, TextField, IconButton } from "@mui/material";
+import { Button, Box, TextField, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { collection, addDoc } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { dataBase } from "../../../firebase";
-import { SentMessagesList } from "components";
+import { SentMessagesList, Typography, TypographyVariant } from "components";
 import styles from "./ChatSection.module.css";
 import { DocumentReference } from "@firebase/firestore-types";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { useWindowWidth } from "utils";
 
 type MessageItemToFirebase = {
   content: string;
@@ -24,6 +25,8 @@ type ChatSectionProps = {
 };
 
 export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
+  const { width } = useWindowWidth();
+
   const {
     control,
     handleSubmit,
@@ -47,12 +50,14 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   return (
     <>
       <Box className={styles.chatHeader}>
-        <Typography variant="h5" noWrap component="div" fontWeight={700}>
+        <Typography variant={TypographyVariant.CHAT_TITLE}>
           Chat name
         </Typography>
-        <IconButton onClick={() => closeFunction()}>
-          <CloseIcon />
-        </IconButton>
+        {width < 800 && (
+          <IconButton onClick={() => closeFunction()}>
+            <CloseIcon />
+          </IconButton>
+        )}
       </Box>
       <Box className={styles.sentMessagesSection}>
         {/*<SentMessagesList messages={messages} />*/}

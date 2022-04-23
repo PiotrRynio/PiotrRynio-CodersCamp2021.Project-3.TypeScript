@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import { Logo } from "components";
 import styles from "./SignUpPage.module.css";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";

@@ -5,7 +5,7 @@ function getWindowWidth() {
   return { width: innerWidth };
 }
 
-export default function useWindowWidth() {
+export function useWindowWidth() {
   const [windowWidth, setWindowWidth] = useState(getWindowWidth());
 
   useEffect(() => {
