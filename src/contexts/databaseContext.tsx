@@ -1,5 +1,11 @@
 import React, { useContext } from "react";
-import { collection, addDoc, getDocs, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import { dataBase } from "../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
@@ -30,20 +36,28 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
 
-  const addChatInUserChats = async (userId: string, chatId: string): void => {
+  const addChatInUserChats = async (
+    userId: string,
+    chatId: string
+  ): Promise<void> => {
     const user = await getUserById(userId);
     console.log("user", user);
     if (!user) {
       return;
     }
 
-    const newUser = {
+    console.log("CHAT ID");
+    await console.log(chatId);
+    const updatedUser = {
       ...user,
       chats: [...user.chats, chatId],
     };
-    console.log("newUser", newUser);
+    console.log("updatedUSER:", updatedUser);
 
-    await updateDoc(usersCollection, userId, newUser);
+    const docTemp = doc(dataBase, "users", user.id);
+    await updateDoc(docTemp, {
+      ...updatedUser,
+    });
   };
 
   const getUserById = async (userId: string): Promise<User | undefined> => {
@@ -60,8 +74,9 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     return addDoc(usersCollection, user);
   };
 
-  const addChatToDatabase = (chat: Chat) => {
-    return addDoc(chatsCollection, chat);
+  const addChatToDatabase = async (chat: Chat): Promise<string> => {
+    const newChatSnapshot = await addDoc(chatsCollection, chat);
+    return newChatSnapshot.id;
   };
 
   const getUserByEmail = async (email: string) => {
