@@ -1,11 +1,14 @@
 import React from "react";
 import { ConversationPreview } from "../ConversationPreview/ConversationPreview";
+import { useDatabase } from "contexts";
 
 export type ConversationPreviewListProps = {
   // propsName: any;
 };
 
 export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
+  const { users, addChatToDatabase, getUserByEmail, addChatInUserChats } =
+    useDatabase();
   return (
     <div>
       {conversationPreviewList.map((conversationPreview, index) => (
