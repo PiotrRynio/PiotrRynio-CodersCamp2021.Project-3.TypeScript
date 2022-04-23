@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import {
-  collection,
   addDoc,
+  collection,
+  doc,
   getDocs,
   updateDoc,
-  doc,
 } from "firebase/firestore";
 import { dataBase } from "../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -35,6 +35,16 @@ export const DatabaseProvider: React.FC = ({ children }) => {
 
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
+
+  // get chat by id from chats collection
+  const getChatById = async (chatId: string) => {
+    const allChatsSnapshot = await getDocs(chatsCollection);
+    const allChats = allChatsSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    return allChats?.find((chat) => chat.id === chatId);
+  };
 
   const addChatInUserChats = async (
     userId: string,
@@ -92,6 +102,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     getUserByEmail,
     addChatInUserChats,
     users,
+    getChatById,
   };
 
   return (
