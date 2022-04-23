@@ -44,29 +44,15 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
     ? users.map((user: any) => user.emailAddress)
     : [];
 
-  const getUserIDByEmail = (email: string): string => {
-    const foundUser = users.find((user: any) => user.emailAddress === email);
-    console.log(foundUser.id);
-    return foundUser?.id;
-  };
-
   const onSubmit: SubmitHandler<ModalInput> = async (data): Promise<void> => {
-    getUserByEmail(data.emails[0]).then((user: any) => {
-      const chat: Chat = {
-        chatName: data.chatName,
-        users: data.emails.map((email) => getUserIDByEmail(email)),
-      };
-      addChatToDatabase(chat);
-    });
-
-    //console.log(data.emails[0]);
-    //console.log(data.chatName);
-    const usersIds = data.emails.map((email) => {
-      getUserIDByEmail(email);
-    });
-    console.log("XXXXXXXXXXXXXXXXX");
-    const createdChat: Chat = { chatName: data.chatName, users: data.emails };
-    //zamiast email dac id
+    const users = data.emails.map(
+      async (email: string) => await getUserByEmail(email)
+    );
+    const chat: Chat = {
+      chatName: data.chatName,
+      users: await Promise.all(users),
+    };
+    await addChatToDatabase(chat);
   };
 
   useEffect(() => {

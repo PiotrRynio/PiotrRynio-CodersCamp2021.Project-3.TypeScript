@@ -63,6 +63,8 @@ export const DatabaseProvider: React.FC = ({ children }) => {
       (doc) => ({ ...doc.data(), id: doc.id } as User)
     );
     const user = allUsers.find((user) => user.emailAddress === email);
+    console.log("USER");
+    console.log(user);
     return user;
   };
 
