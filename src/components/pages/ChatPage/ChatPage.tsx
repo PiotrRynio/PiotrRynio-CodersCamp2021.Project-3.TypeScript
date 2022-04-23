@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { ChatSection, SearchBar } from "components";
 import styles from "./ChatPage.module.css";
-import useWindowWidth from "./useWindowWidth";
+import { useWindowWidth } from "utils";
 import { useState, useEffect } from "react";
 import { useAuth } from "contexts";
 import { useNavigate } from "react-router-dom";
@@ -20,9 +20,7 @@ export const ChatPage = () => {
 
   return (
     <Box className={styles.background}>
-      <Box>
-        <SearchBar />
-      </Box>
+      <SearchBar />
       <div className={styles.main}>
         <div
           className={`${styles.leftSection} ${

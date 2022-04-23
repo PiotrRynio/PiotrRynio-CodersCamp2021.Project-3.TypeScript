@@ -10,9 +10,11 @@ export const Search = () => {
       {isOpen ? (
         <InputBase
           autoFocus
+          sx={{ color: "white" }}
           placeholder="Search..."
           inputProps={{ "aria-label": "search" }}
           className={styles.searchInput}
+          onBlur={() => setIsOpen(() => false)}
         />
       ) : (
         <></>

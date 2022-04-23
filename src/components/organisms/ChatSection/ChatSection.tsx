@@ -8,6 +8,7 @@ import styles from "./ChatSection.module.css";
 import { DocumentReference } from "@firebase/firestore-types";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { useWindowWidth } from "utils";
 
 type MessageItemToFirebase = {
   content: string;
@@ -24,6 +25,8 @@ type ChatSectionProps = {
 };
 
 export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
+  const { width } = useWindowWidth();
+
   const {
     control,
     handleSubmit,
@@ -50,9 +53,11 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
         <Typography variant="h5" noWrap component="div" fontWeight={700}>
           Chat name
         </Typography>
-        <IconButton onClick={() => closeFunction()}>
-          <CloseIcon />
-        </IconButton>
+        {width < 800 && (
+          <IconButton onClick={() => closeFunction()}>
+            <CloseIcon />
+          </IconButton>
+        )}
       </Box>
       <Box className={styles.sentMessagesSection}>
         {/*<SentMessagesList messages={messages} />*/}

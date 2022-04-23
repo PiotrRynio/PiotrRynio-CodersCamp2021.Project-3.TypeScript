@@ -12,6 +12,10 @@
 }
 
 @media (min-width: 500px) {
+  .appBar {
+    margin-bottom: 10px;
+  }
+
   .typography {
     display: block;
   }
