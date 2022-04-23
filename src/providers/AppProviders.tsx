@@ -5,7 +5,7 @@ type UserContextType = {
   lastName: string;
   isAuth: boolean;
   email: string;
-  chats?: string[];
+  chats: string[];
   setFirstName?: (firstName: string) => void;
   setLastName?: (lastName: string) => void;
   setIsAuth: (isAuth: boolean) => void;
@@ -18,7 +18,7 @@ const userContextDefaultValues: UserContextType = {
   lastName: "",
   isAuth: false,
   email: "",
-  chats: ["", ""],
+  chats: [""],
 
   setFirstName: (firstName: string) => {},
   setLastName: (lastName: string) => {},
