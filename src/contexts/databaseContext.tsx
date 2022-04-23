@@ -10,6 +10,7 @@ type User = {
   lastName: string;
   emailAddress: string;
   id: string;
+  chats: string[];
 };
 
 type Chat = {
@@ -28,6 +29,32 @@ export const DatabaseProvider: React.FC = ({ children }) => {
 
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
+
+  const addChatInUserChats = async (userId: string, chatId: string): void => {
+    const user = await getUserById(userId);
+    console.log("user", user);
+    if (!user) {
+      return;
+    }
+
+    const newUser = {
+      ...user,
+      chats: [...user.chats, chatId],
+    };
+    console.log("newUser", newUser);
+
+    await updateDoc(usersCollection, userId, newUser);
+  };
+
+  const getUserById = async (userId: string): Promise<User | undefined> => {
+    const allUsersSnapshot = await getDocs(usersCollection);
+    const allUsers = allUsersSnapshot.docs.map(
+      (doc) => ({ ...doc.data(), id: doc.id } as User)
+    );
+    const user = allUsers.find((user) => user.id === userId);
+    console.log("getUserById", userId, user);
+    return user;
+  };
 
   const addUserToDatabase = (user: User) => {
     return addDoc(usersCollection, user);
@@ -50,6 +77,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     addUserToDatabase,
     addChatToDatabase,
     getUserByEmail,
+    addChatInUserChats,
     users,
   };
 

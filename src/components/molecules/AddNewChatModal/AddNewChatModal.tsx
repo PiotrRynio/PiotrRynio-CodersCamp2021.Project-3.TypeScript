@@ -30,7 +30,8 @@ type Chat = {
   messages?: string[];
 };
 export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
-  const { users, addChatToDatabase, getUserByEmail } = useDatabase();
+  const { users, addChatToDatabase, getUserByEmail, addChatInUserChats } =
+    useDatabase();
 
   const {
     control,
@@ -53,6 +54,16 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
       users: await Promise.all(users),
     };
     await addChatToDatabase(chat);
+
+    const userIds = chat.users.map((user: any) => user.id);
+    const chatId = chat.users.map(
+      (user: any) =>
+        user.chats.find((chat: any) => chat.chatName === chat.chatName).id
+    );
+
+    await userIds.forEach((userId: string) => {
+      addChatInUserChats(userId, chatId);
+    });
     handleClose();
   };
 
