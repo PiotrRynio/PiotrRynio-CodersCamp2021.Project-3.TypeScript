@@ -1,5 +1,6 @@
 import React from "react";
 import List from "@mui/material/List";
+import { useDatabase } from "contexts";
 import { ConversationPreview } from "components";
 import styles from "./ConversationPreviewList.module.scss";
 
@@ -8,6 +9,8 @@ export type ConversationPreviewListProps = {
 };
 
 export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
+  const { users, addChatToDatabase, getUserByEmail, addChatInUserChats } =
+    useDatabase();
   return (
     <List className={styles.chatList}>
       {conversationPreviewList.map((conversationPreview, index) => (

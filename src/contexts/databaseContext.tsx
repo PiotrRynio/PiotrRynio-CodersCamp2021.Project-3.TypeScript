@@ -41,12 +41,10 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     chatId: string
   ): Promise<void> => {
     const user = await getUserById(userId);
-    console.log("user", user);
     if (!user) {
       return;
     }
 
-    console.log("CHAT ID");
     await console.log(chatId);
     const updatedUser = {
       ...user,
