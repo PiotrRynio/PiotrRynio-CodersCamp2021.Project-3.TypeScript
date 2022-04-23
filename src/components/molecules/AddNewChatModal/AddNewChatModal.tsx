@@ -51,6 +51,14 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
   };
 
   const onSubmit: SubmitHandler<ModalInput> = async (data): Promise<void> => {
+    getUserByEmail(data.emails[0]).then((user: any) => {
+      const chat: Chat = {
+        chatName: data.chatName,
+        users: data.emails.map((email) => getUserIDByEmail(email)),
+      };
+      addChatToDatabase(chat);
+    });
+
     //console.log(data.emails[0]);
     //console.log(data.chatName);
     const usersIds = data.emails.map((email) => {

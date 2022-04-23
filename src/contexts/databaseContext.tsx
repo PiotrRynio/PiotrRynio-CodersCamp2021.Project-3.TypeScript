@@ -37,16 +37,17 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
 
-  /*  console.log("USERS");
+  console.log();
+  console.log("USERS");
   console.log(users);
   console.log("CHATS");
   console.log(chats);
-  console.log("USERS COLLECTION");
-  console.log(usersCollection);
-  console.log("CHATS COLLECTION");
-  console.log(chatsCollection);
-  console.log("DATABASE");
-  console.log(dataBase);*/
+  // console.log("USERS COLLECTION");
+  // console.log(usersCollection);
+  // console.log("CHATS COLLECTION");
+  // console.log(chatsCollection);
+  // console.log("DATABASE");
+  // console.log(dataBase);*/
 
   const addUserToDatabase = (user: User) => {
     return addDoc(usersCollection, user);
@@ -57,29 +58,12 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   };
 
   const getUserByEmail = async (email: string) => {
-    const queryItem = query(
-      usersCollection,
-      where("emailAddress", "==", email)
+    const allUsersSnapshot = await getDocs(usersCollection);
+    const allUsers = allUsersSnapshot.docs.map(
+      (doc) => ({ ...doc.data(), id: doc.id } as User)
     );
-    /*    const querySnapshot = await getDocs(queryItem);
-    const tempUser: any = [];
-    await querySnapshot.forEach((doc) => {
-      tempUser.push({ ...doc.data(), id: doc.id });
-    });*/
-    /*    onSnapshot(queryItem, (snapshot) => {
-      let users: any = [];
-
-      snapshot.docs.forEach((doc) => {
-        users.push({ ...doc.data(), id: doc.id });
-      });
-      return users;
-    });*/
-    /*    const allUsers = await getDocs(usersCollection);
-    const temp = allUsers.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    console.log(temp);
-    console.log("IN DATABASE CONTEXT");
-    console.log(allUsers[0]);
-    return allUsers[0];*/
+    const user = allUsers.find((user) => user.emailAddress === email);
+    return user;
   };
 
   const value = {
