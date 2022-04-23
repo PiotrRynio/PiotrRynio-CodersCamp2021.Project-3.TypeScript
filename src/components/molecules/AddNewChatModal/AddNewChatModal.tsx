@@ -47,17 +47,22 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
     : [];
 
   const onSubmit: SubmitHandler<ModalInput> = async (data): Promise<void> => {
-    const users = data.emails.map(
+    const chatUsersPromise = data.emails.map(
       async (email: string) => await getUserByEmail(email)
     );
+    const chatUsers = await Promise.all(chatUsersPromise);
+
+    const chatUsersIds = chatUsers.map((user: any) => user.id);
     const createdChat: Chat = {
       chatName: data.chatName,
-      users: await Promise.all(users),
+      users: chatUsersIds,
     };
 
     const addedChatId: string = await addChatToDatabase(createdChat);
     const userIds = createdChat.users.map((user: any) => user.id);
 
+    console.log("CHAT IDDDDDDDDDDDDDDD");
+    console.log(addedChatId);
     await userIds.forEach((userId: string) => {
       addChatInUserChats(userId, addedChatId);
     });
