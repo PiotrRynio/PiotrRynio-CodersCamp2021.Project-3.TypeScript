@@ -1,9 +1,9 @@
-import { Button, Box, Typography, TextField, IconButton } from "@mui/material";
+import { Button, Box, TextField, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { collection, addDoc } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { dataBase } from "../../../firebase";
-import { SentMessagesList } from "components";
+import { SentMessagesList, Typography, TypographyVariant } from "components";
 import styles from "./ChatSection.module.css";
 import { DocumentReference } from "@firebase/firestore-types";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -50,7 +50,7 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   return (
     <>
       <Box className={styles.chatHeader}>
-        <Typography variant="h5" noWrap component="div" fontWeight={700}>
+        <Typography variant={TypographyVariant.CHAT_TITLE}>
           Chat name
         </Typography>
         {width < 800 && (

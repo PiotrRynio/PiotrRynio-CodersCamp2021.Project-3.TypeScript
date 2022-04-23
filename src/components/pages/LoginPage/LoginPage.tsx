@@ -1,13 +1,12 @@
-import { useState } from "react";
-import { Box, TextField } from "@mui/material";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import classnames from "classnames";
+import { ErrorMessage } from "@hookform/error-message";
+import { Box } from "@mui/material";
+import { useAuth } from "contexts";
 import { Logo } from "components";
 import styles from "./LoginPage.module.css";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import classnames from "classnames";
-import { useEffect } from "react";
-import { useAuth } from "contexts";
-import { Link, useNavigate } from "react-router-dom";
 
 type UserToFirebase = {
   emailAddress: string;
@@ -65,6 +64,8 @@ export const LoginPage = () => {
       <Box className={styles.contentBox}>
         <Logo height={100} />
         <h3 className={styles.header}>Log in</h3>
+        {/*// TODO: change for Typography*/}
+        component
         <form className={styles.formGroup} onSubmit={handleSubmit(loginUser)}>
           <Controller
             name="emailAddress"
@@ -129,6 +130,7 @@ export const LoginPage = () => {
           </Link>
         </p>
         <p className={styles.copyright}>Copyright ©CodersCamp 2021</p>
+        {/*// TODO: change for Typography component (variant: overline)*/}
       </Box>
     </Box>
   );

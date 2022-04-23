@@ -4,12 +4,11 @@ import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import styles from "./LeftSection.module.css";
 import Button from "@mui/material/Button";
-import { AddNewChatModal } from "components";
+import { AddNewChatModal, Typography, TypographyVariant } from "components";
 import { useState } from "react";
 
 export const LeftSection = () => {
@@ -47,10 +46,7 @@ export const LeftSection = () => {
               secondary={
                 <>
                   <Typography
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
+                    variant={TypographyVariant.CONVERSATION_PREVIEW_AUTHOR}
                   >
                     Ali Connors
                   </Typography>
@@ -69,10 +65,7 @@ export const LeftSection = () => {
               secondary={
                 <>
                   <Typography
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
+                    variant={TypographyVariant.CONVERSATION_PREVIEW_AUTHOR}
                   >
                     to Scott, Alex, Jennifer
                   </Typography>
@@ -91,10 +84,7 @@ export const LeftSection = () => {
               secondary={
                 <>
                   <Typography
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
+                    variant={TypographyVariant.CONVERSATION_PREVIEW_AUTHOR}
                   >
                     Sandra Adams
                   </Typography>
