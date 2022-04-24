@@ -13,11 +13,11 @@ export const ChatPage = () => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
 
-  /*  useEffect(() => {
+  useEffect(() => {
     if (!currentUser) {
       navigate("/login");
     }
-  }, []);*/
+  }, []);
 
   return (
     <Box className={styles.background}>
