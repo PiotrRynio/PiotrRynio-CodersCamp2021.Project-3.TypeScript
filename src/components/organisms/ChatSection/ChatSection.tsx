@@ -32,7 +32,7 @@ type ChatSectionProps = {
 export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   const { width } = useWindowWidth();
   const { chatID } = useChosenChatContext();
-  const { getChatById } = useDatabase();
+  const { getChatById, addMessageToChat } = useDatabase();
 
   const {
     data: chatData,
@@ -64,9 +64,12 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     const newMessage: MessageItemToFirebase = {
       content: data.message,
       sentAt: new Date(),
+      //author -
     };
     reset();
     await addDoc(messagesCollection, newMessage);
+    addMessageToChat(newMessage, chatID);
+    //tutaj update chatu o messages
   };
   if (!isLoading) {
     return (

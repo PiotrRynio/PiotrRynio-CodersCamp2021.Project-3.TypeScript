@@ -24,7 +24,12 @@ type Chat = {
   users: string[];
   messages?: string[];
 };
-
+type Message = {
+  id: string;
+  content: string;
+  sentAt: Date;
+  authorID?: string;
+};
 export const useDatabase = () => {
   return useContext(DatabaseContext);
 };
@@ -60,11 +65,6 @@ export const DatabaseProvider: React.FC = ({ children }) => {
       return;
     }
 
-    const updatedUser = {
-      ...user,
-      chats: [...user.chats, chatId],
-    };
-
     const docUserToUpdate = doc(dataBase, "users", user.id);
     await updateDoc(docUserToUpdate, {
       chats: [...user.chats, chatId],
@@ -99,6 +99,18 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     return user;
   };
 
+  const addMessageToChat = async (message: Message, chatID: string) => {
+    const chat = await getChatById(chatID);
+    const docChatToUpdate = doc(dataBase, "chats", chatID);
+
+    console.log("XXX ");
+    console.log(chat);
+    console.log("XXXX");
+    /*    await updateDoc(docChatToUpdate, {
+      messages: [...chat?.messages, message.id],
+    });*/
+  };
+
   const value = {
     addUserToDatabase,
     addChatToDatabase,
@@ -106,7 +118,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     addChatInUserChats,
     getUserChatsIds,
     getChatById,
-
+    addMessageToChat,
     users,
   };
 

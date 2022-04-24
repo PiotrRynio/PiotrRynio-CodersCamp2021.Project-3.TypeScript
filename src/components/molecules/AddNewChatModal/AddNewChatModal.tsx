@@ -67,6 +67,7 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
       addChatInUserChats(userId, addedChatId);
     });
     setChatID(addedChatId);
+
     handleClose();
   };
 

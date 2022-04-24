@@ -32,7 +32,6 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
   );
 
   const onClickAtConversationPreview = (chatID: string): void => {
-    console.log("NASTEPUJE WYSETOWANIE CHAT ID");
     setChatID(chatID);
   };
   return (
