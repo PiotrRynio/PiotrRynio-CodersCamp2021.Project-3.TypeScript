@@ -13,6 +13,7 @@ import styles from "./AddNewChatModal.module.css";
 import { useEffect } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useDatabase } from "contexts";
+import { useChosenChatContext } from "../../../providers/AppProviders";
 
 type ModalProps = {
   isOpen: boolean;
@@ -33,6 +34,7 @@ type Chat = {
 export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
   const { users, addChatToDatabase, getUserByEmail, addChatInUserChats } =
     useDatabase();
+  const { setChatID } = useChosenChatContext();
 
   const {
     control,
@@ -64,6 +66,8 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
     await userIds.forEach((userId: string) => {
       addChatInUserChats(userId, addedChatId);
     });
+    setChatID(addedChatId);
+
     handleClose();
   };
 

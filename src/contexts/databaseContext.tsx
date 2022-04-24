@@ -26,7 +26,12 @@ type Chat = {
   users: string[];
   messages?: string[];
 };
-
+type Message = {
+  id: string;
+  content: string;
+  sentAt: Date;
+  authorID?: string;
+};
 export const useDatabase = () => {
   return useContext(DatabaseContext);
 };
@@ -34,6 +39,7 @@ export const useDatabase = () => {
 export const DatabaseProvider: React.FC = ({ children }) => {
   const usersCollection = collection(dataBase, "users");
   const chatsCollection = collection(dataBase, "chats");
+  const messagesCollection = collection(dataBase, "messages");
 
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
@@ -44,13 +50,24 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   };
 
   // get chat by id from chats collection
-  const getChatById = async (chatId: string) => {
+  const getChatById = async (chatId: string): Promise<{} | undefined> => {
     const allChatsSnapshot = await getDocs(chatsCollection);
     const allChats = allChatsSnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
     }));
     return allChats?.find((chat) => chat.id === chatId);
+  };
+
+  const getMessageByID = async (messageId: string): Promise<{} | undefined> => {
+    console.log("getMessageByID");
+    const allMessagesSnapshot = await getDocs(messagesCollection);
+    const allMessages = allMessagesSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    console.log("allMesages", allMessages);
+    return allMessages?.find((message) => message.id === messageId);
   };
 
   const addChatInUserChats = async (
@@ -61,11 +78,6 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     if (!user) {
       return;
     }
-
-    const updatedUser = {
-      ...user,
-      chats: [...user.chats, chatId],
-    };
 
     const docUserToUpdate = doc(dataBase, "users", user.id);
     await updateDoc(docUserToUpdate, {
@@ -107,6 +119,15 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     return user;
   };
 
+  const addMessageToChat = async (message: Message, chatID: string) => {
+    const chat = (await getChatById(chatID)) as Chat;
+    const docChatToUpdate = doc(dataBase, "chats", chatID);
+    chat.messages?.push(message.id);
+    await updateDoc(docChatToUpdate, {
+      messages: chat.messages,
+    });
+  };
+
   const value = {
     addUserToDatabase,
     addChatToDatabase,
@@ -114,6 +135,8 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     addChatInUserChats,
     getUserChatsIds,
     getChatById,
+    addMessageToChat,
+    getMessageByID,
     findUserDataIdbyUid,
     users,
   };
