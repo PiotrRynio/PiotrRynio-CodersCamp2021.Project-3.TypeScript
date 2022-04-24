@@ -49,11 +49,6 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     refetch();
   }, [chatID]);
 
-  console.log("CHAT ID");
-  console.log(chatID);
-  console.log("CHAT DATA");
-  console.log(chatData);
-
   const {
     control,
     handleSubmit,
