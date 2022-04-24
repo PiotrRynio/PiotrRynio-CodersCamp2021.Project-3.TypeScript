@@ -15,13 +15,11 @@
 
 .menuBox {
   display: block;
-  flex-direction: column;
   position: absolute;
   margin-top: 10px;
-  left: -5px;
+  left: -4px;
   background: white;
   width: 800px;
-  color: black;
   z-index: 2;
 }
 
@@ -32,7 +30,6 @@
   font-family: Roboto, sans-serif;
   font-size: 18px;
   padding-left: 10px;
-  color: white;
   height: 46px;
 }
 
@@ -50,6 +47,10 @@
   height: 46px;
 }
 
+.logoutButton:hover {
+  background: #5581fa;
+}
+
 @media (min-width: 500px) {
   .appBar {
     margin-bottom: 10px;
@@ -57,5 +58,9 @@
 
   .typography {
     display: block;
+  }
+
+  .menuBox {
+    width: 200px;
   }
 }

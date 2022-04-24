@@ -11,7 +11,7 @@ export const ChatPage = () => {
   const { width } = useWindowWidth();
   const [side, setSide] = useState<"left" | "right">("left");
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
+  const { currentUser, userId } = useAuth();
 
   useEffect(() => {
     if (!currentUser) {
@@ -28,7 +28,7 @@ export const ChatPage = () => {
             (width < 800 && side === "left") || width >= 800 ? "" : styles.hide
           }`}
         >
-          <LeftSection></LeftSection>
+          <LeftSection />
         </div>
         <div
           className={`${styles.chatContainer} ${

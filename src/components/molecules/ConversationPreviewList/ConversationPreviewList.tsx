@@ -25,16 +25,12 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
     () => {
       return Promise.all(
         chatsIds.map((chatId: any) => {
-          console.log(chatId);
           return getChatById(chatId);
         })
       );
     },
     { enabled: !!chatsIds }
   );
-
-  console.log(chatsIds);
-  console.log("XXXXXXXXXXXXXX");
 
   return (
     <List className={styles.chatList}>

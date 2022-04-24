@@ -4,7 +4,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import classnames from "classnames";
 import { ErrorMessage } from "@hookform/error-message";
 import { Box } from "@mui/material";
-import { useAuth } from "contexts";
+import { useAuth, useDatabase } from "contexts";
 import { Logo } from "components";
 import styles from "./LoginPage.module.css";
 
@@ -27,7 +27,8 @@ export const LoginPage = () => {
     getValues,
     formState: { errors },
   } = useForm<IFormInput>();
-  const { currentUser, login } = useAuth();
+  const { currentUser, login, setUserDataId, userData } = useAuth();
+  const { findUserDataIdbyUid } = useDatabase();
 
   const navigate = useNavigate();
 
@@ -50,7 +51,9 @@ export const LoginPage = () => {
   }) => {
     setLoading(true);
     try {
-      await login(emailAddress, password);
+      const { user } = await login(emailAddress, password);
+      const userDataId = await findUserDataIdbyUid(user.uid);
+      setUserDataId(userDataId);
       navigate("/chat");
     } catch {
       console.log("Can't to log in");

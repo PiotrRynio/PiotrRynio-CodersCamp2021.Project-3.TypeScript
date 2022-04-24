@@ -3,6 +3,8 @@ import {
   addDoc,
   collection,
   doc,
+  query,
+  where,
   getDocs,
   updateDoc,
 } from "firebase/firestore";
@@ -77,12 +79,18 @@ export const DatabaseProvider: React.FC = ({ children }) => {
       (doc) => ({ ...doc.data(), id: doc.id } as User)
     );
     const user = allUsers.find((user) => user.id === userId);
-    console.log("getUserById", userId, user);
     return user;
   };
 
   const addUserToDatabase = (user: User) => {
-    return addDoc(usersCollection, user);
+    const newUser = addDoc(usersCollection, user);
+    return newUser;
+  };
+
+  const findUserDataIdbyUid = async (uid: string) => {
+    const q = query(collection(dataBase, "users"), where("uid", "==", uid));
+    const querySnapshot: any = await getDocs(q);
+    return querySnapshot.docs[0].id;
   };
 
   const addChatToDatabase = async (chat: Chat): Promise<string> => {
@@ -106,7 +114,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     addChatInUserChats,
     getUserChatsIds,
     getChatById,
-
+    findUserDataIdbyUid,
     users,
   };
 
