@@ -16,6 +16,11 @@ type UserContextType = {
   setChats: (chats: string[]) => void;
 };
 
+type chosenChatType = {
+  chatID: string;
+  setChatID: (chatID: string) => void;
+};
+
 const userContextDefaultValues: UserContextType = {
   firstName: "",
   lastName: "",
@@ -28,6 +33,11 @@ const userContextDefaultValues: UserContextType = {
   setIsAuth: (isAuth: boolean) => {},
   setEmail: (email: string) => {},
   setChats: (chats: string[]) => {},
+};
+
+const chosenChatDefaultValues: chosenChatType = {
+  chatID: "temporaryCHATID",
+  setChatID: (chatID: string) => {},
 };
 
 export const UserContext = createContext<UserContextType>(
@@ -49,7 +59,6 @@ export const UserContextProvider = ({
     userContextDefaultValues.lastName
   );
   const [email, setEmail] = useState<string>(userContextDefaultValues.email);
-
   const [chats, setChats] = useState<string[]>(userContextDefaultValues.chats);
 
   return (
@@ -74,4 +83,27 @@ export const UserContextProvider = ({
   );
 };
 
+export const ChosenChatContext = createContext<chosenChatType>(
+  chosenChatDefaultValues
+);
+export const ChosenChatContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [chatID, setChatID] = useState<string>(chosenChatDefaultValues.chatID);
+
+  return (
+    <ChosenChatContext.Provider
+      value={{
+        chatID,
+        setChatID,
+      }}
+    >
+      {children}
+    </ChosenChatContext.Provider>
+  );
+};
+
+export const useChosenChatContext = () => useContext(ChosenChatContext);
 export const useAppUserContext = () => useContext(UserContext);

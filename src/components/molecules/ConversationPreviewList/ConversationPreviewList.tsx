@@ -4,13 +4,12 @@ import { useDatabase } from "contexts";
 import { ConversationPreview } from "components";
 import styles from "./ConversationPreviewList.module.scss";
 import { useQuery } from "react-query";
-
-export type ConversationPreviewListProps = {
-  // propsName: any;
-};
+import { useChosenChatContext } from "./../../../providers/AppProviders";
+export type ConversationPreviewListProps = {};
 
 export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
   const { getChatById, getUsers, getUserChatsIds } = useDatabase();
+  const { chatID, setChatID } = useChosenChatContext();
 
   const { data: chatsIds } = useQuery(
     "userChats",
@@ -25,7 +24,6 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
     () => {
       return Promise.all(
         chatsIds.map((chatId: any) => {
-          console.log(chatId);
           return getChatById(chatId);
         })
       );
@@ -33,20 +31,22 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
     { enabled: !!chatsIds }
   );
 
-  console.log(chatsIds);
-  console.log("XXXXXXXXXXXXXX");
-
+  const onClickAtConversationPreview = (chatID: string): void => {
+    setChatID(chatID);
+  };
   return (
     <List className={styles.chatList}>
       {conversationPreviewList &&
         conversationPreviewList.map((conversationPreview, index) => (
           <ConversationPreview
+            Click={onClickAtConversationPreview}
             key={index}
             conversationTitle={conversationPreview.chatName}
             userFirstName={conversationPreview.userFirstName}
             userLastName={conversationPreview.userLastName}
             userAvatar={conversationPreview.userAvatar}
             lastMessage={conversationPreview.lastMessage}
+            chatId={conversationPreview.id}
           />
         ))}
     </List>

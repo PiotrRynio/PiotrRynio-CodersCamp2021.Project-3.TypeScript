@@ -1,9 +1,3 @@
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
 import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import styles from "./LeftSection.module.css";
