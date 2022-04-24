@@ -8,8 +8,8 @@ import { useChosenChatContext } from "./../../../providers/AppProviders";
 export type ConversationPreviewListProps = {};
 
 export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
-  const { getChatById, getUsers, getUserChatsIds } = useDatabase();
-  const { chatID, setChatID } = useChosenChatContext();
+  const { getChatById, getUserChatsIds } = useDatabase();
+  const { setChatID } = useChosenChatContext();
 
   const { data: chatsIds } = useQuery(
     "userChats",
@@ -32,6 +32,7 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
   );
 
   const onClickAtConversationPreview = (chatID: string): void => {
+    console.log("NASTEPUJE WYSETOWANIE CHAT ID");
     setChatID(chatID);
   };
   return (
@@ -45,7 +46,6 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
             userFirstName={conversationPreview.userFirstName}
             userLastName={conversationPreview.userLastName}
             userAvatar={conversationPreview.userAvatar}
-            lastMessage={conversationPreview.lastMessage}
             chatId={conversationPreview.id}
           />
         ))}
