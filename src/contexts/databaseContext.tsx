@@ -36,6 +36,11 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
 
+  const getUserChatsIds = async (userId: string) => {
+    const user = await getUserById(userId);
+    return user?.chats;
+  };
+
   // get chat by id from chats collection
   const getChatById = async (chatId: string) => {
     const allChatsSnapshot = await getDocs(chatsCollection);
@@ -55,12 +60,10 @@ export const DatabaseProvider: React.FC = ({ children }) => {
       return;
     }
 
-    await console.log(chatId);
     const updatedUser = {
       ...user,
       chats: [...user.chats, chatId],
     };
-    console.log("updatedUSER:", updatedUser);
 
     const docUserToUpdate = doc(dataBase, "users", user.id);
     await updateDoc(docUserToUpdate, {
@@ -101,8 +104,10 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     addChatToDatabase,
     getUserByEmail,
     addChatInUserChats,
-    users,
+    getUserChatsIds,
     getChatById,
+
+    users,
   };
 
   return (

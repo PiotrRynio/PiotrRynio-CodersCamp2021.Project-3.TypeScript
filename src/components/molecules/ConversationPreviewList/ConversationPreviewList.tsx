@@ -10,23 +10,31 @@ export type ConversationPreviewListProps = {
 };
 
 export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
-  const { getChatById } = useDatabase();
-  // chatsId in array of string
-  const chatsIds = [
-    "Xhsh1FHPndJfzbk66HUA",
-    "Xhsh1FHPndJfzbk66HUA",
-    "Xhsh1FHPndJfzbk66HUA",
-  ];
+  const { getChatById, getUsers, getUserChatsIds } = useDatabase();
 
-  const { data: conversationPreviewList } = useQuery(
-    "",
+  const { data: chatsIds } = useQuery(
+    "userChats",
     () => {
-      return Promise.all(chatsIds.map((chatId) => getChatById(chatId)));
+      return getUserChatsIds("rg4XVqDWLPztcwREjCCQ");
     },
     {}
   );
 
-  console.log(conversationPreviewList);
+  const { data: conversationPreviewList } = useQuery(
+    "chatsData",
+    () => {
+      return Promise.all(
+        chatsIds.map((chatId: any) => {
+          console.log(chatId);
+          return getChatById(chatId);
+        })
+      );
+    },
+    { enabled: !!chatsIds }
+  );
+
+  console.log(chatsIds);
+  console.log("XXXXXXXXXXXXXX");
 
   return (
     <List className={styles.chatList}>
