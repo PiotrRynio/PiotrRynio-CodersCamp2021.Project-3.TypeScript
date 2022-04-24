@@ -14,7 +14,7 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
   const { data: chatsIds } = useQuery(
     "userChats",
     () => {
-      return getUserChatsIds("CAioNKbylhfwB0a7D2zI");
+      return getUserChatsIds("rg4XVqDWLPztcwREjCCQ");
     },
     {}
   );
@@ -24,6 +24,7 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
     () => {
       return Promise.all(
         chatsIds.map((chatId: any) => {
+          console.log(chatId);
           return getChatById(chatId);
         })
       );
@@ -45,7 +46,7 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
             userFirstName={conversationPreview.userFirstName}
             userLastName={conversationPreview.userLastName}
             userAvatar={conversationPreview.userAvatar}
-            chatId={conversationPreview.id}
+            lastMessage={conversationPreview.lastMessage}
           />
         ))}
     </List>

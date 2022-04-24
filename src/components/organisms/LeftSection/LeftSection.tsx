@@ -23,7 +23,7 @@ export const LeftSection = () => {
           type="search"
         />
       </Box>
-      <Box>
+      <Box className={styles.chatsSection}>
         <ConversationPreviewList />
       </Box>
       <Box className={styles.bottomButtonSection}>
