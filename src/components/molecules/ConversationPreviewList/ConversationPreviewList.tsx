@@ -47,6 +47,7 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
             userLastName={conversationPreview.userLastName}
             userAvatar={conversationPreview.userAvatar}
             lastMessage={conversationPreview.lastMessage}
+            chatId={conversationPreview.id}
           />
         ))}
     </List>
