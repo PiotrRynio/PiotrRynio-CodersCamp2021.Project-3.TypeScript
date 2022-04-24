@@ -37,6 +37,7 @@ export const useDatabase = () => {
 export const DatabaseProvider: React.FC = ({ children }) => {
   const usersCollection = collection(dataBase, "users");
   const chatsCollection = collection(dataBase, "chats");
+  const messagesCollection = collection(dataBase, "messages");
 
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
@@ -54,6 +55,17 @@ export const DatabaseProvider: React.FC = ({ children }) => {
       id: doc.id,
     }));
     return allChats?.find((chat) => chat.id === chatId);
+  };
+
+  const getMessageByID = async (messageId: string): Promise<{} | undefined> => {
+    console.log("getMessageByID");
+    const allMessagesSnapshot = await getDocs(messagesCollection);
+    const allMessages = allMessagesSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    console.log("allMesages", allMessages);
+    return allMessages?.find((message) => message.id === messageId);
   };
 
   const addChatInUserChats = async (
@@ -102,14 +114,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   const addMessageToChat = async (message: Message, chatID: string) => {
     const chat = (await getChatById(chatID)) as Chat;
     const docChatToUpdate = doc(dataBase, "chats", chatID);
-    console.log("ID WARTOSC");
-    console.log(message.id);
-    console.log("PRZED UPDATEM");
-    console.log(chat.messages);
-
     chat.messages?.push(message.id);
-    console.log("PO UPDACIE");
-    console.log(chat.messages);
     await updateDoc(docChatToUpdate, {
       messages: chat.messages,
     });
@@ -123,6 +128,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     getUserChatsIds,
     getChatById,
     addMessageToChat,
+    getMessageByID,
     users,
   };
 

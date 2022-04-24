@@ -46,6 +46,7 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     },
     {}
   );
+
   useEffect(() => {
     refetch();
   }, [chatID]);
@@ -71,8 +72,9 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     const createdMessage = await addDoc(messagesCollection, newMessage);
     newMessage.id = createdMessage.id;
     addMessageToChat(newMessage, chatID);
-    //tutaj update chatu o messages
+    refetch();
   };
+
   if (!isLoading) {
     return (
       <>
@@ -87,7 +89,7 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
           )}
         </Box>
         <Box className={styles.sentMessagesSection}>
-          {/*<SentMessagesList messages={messages} />*/}
+          {chatData ? <SentMessagesList messages={chatData?.messages} /> : ""}
         </Box>
         <Box className={styles.newMessageSection}>
           <form onSubmit={handleSubmit(sendMessage)}>
