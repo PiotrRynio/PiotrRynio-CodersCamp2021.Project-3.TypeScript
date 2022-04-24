@@ -61,7 +61,7 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
     };
 
     const addedChatId: string = await addChatToDatabase(createdChat);
-    const userIds = createdChat.users.map((user: any) => user.id);
+    const userIds = createdChat.users;
 
     await userIds.forEach((userId: string) => {
       addChatInUserChats(userId, addedChatId);

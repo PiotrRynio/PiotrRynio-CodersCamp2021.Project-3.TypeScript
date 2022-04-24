@@ -28,7 +28,7 @@ export const ChatPage = () => {
             (width < 800 && side === "left") || width >= 800 ? "" : styles.hide
           }`}
         >
-          <LeftSection />
+          <LeftSection showMessages={() => setSide("right")} />
         </div>
         <div
           className={`${styles.chatContainer} ${

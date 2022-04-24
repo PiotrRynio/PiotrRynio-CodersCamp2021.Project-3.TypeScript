@@ -27,7 +27,6 @@ export const ConversationPreview = ({
   return (
     <Box
       onClick={() => {
-        console.log("CLICKED");
         Click(chatId);
       }}
     >

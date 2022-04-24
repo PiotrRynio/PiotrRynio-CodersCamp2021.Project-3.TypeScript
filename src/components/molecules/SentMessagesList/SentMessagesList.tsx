@@ -11,14 +11,11 @@ type MessageListProps = {
 };
 
 export const SentMessagesList = (messagesIds: any) => {
-  console.log("W SENT MESSAGES LIST KURDE");
-  //console.log(messagesIds);
   const { getMessageByID } = useDatabase();
 
   const { data: messagesContent } = useQuery(
     "messagesQuery",
     () => {
-      console.log("messagesIds", messagesIds);
       return Promise.all(
         messagesIds.messages.map((messageID: any) => {
           return getMessageByID(messageID);
