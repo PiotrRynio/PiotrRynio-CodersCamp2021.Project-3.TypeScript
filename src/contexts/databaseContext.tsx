@@ -47,7 +47,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   };
 
   // get chat by id from chats collection
-  const getChatById = async (chatId: string) => {
+  const getChatById = async (chatId: string): Promise<{} | undefined> => {
     const allChatsSnapshot = await getDocs(chatsCollection);
     const allChats = allChatsSnapshot.docs.map((doc) => ({
       ...doc.data(),
@@ -100,15 +100,19 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   };
 
   const addMessageToChat = async (message: Message, chatID: string) => {
-    const chat = await getChatById(chatID);
+    const chat = (await getChatById(chatID)) as Chat;
     const docChatToUpdate = doc(dataBase, "chats", chatID);
+    console.log("ID WARTOSC");
+    console.log(message.id);
+    console.log("PRZED UPDATEM");
+    console.log(chat.messages);
 
-    console.log("XXX ");
-    console.log(chat);
-    console.log("XXXX");
-    /*    await updateDoc(docChatToUpdate, {
-      messages: [...chat?.messages, message.id],
-    });*/
+    chat.messages?.push(message.id);
+    console.log("PO UPDACIE");
+    console.log(chat.messages);
+    await updateDoc(docChatToUpdate, {
+      messages: chat.messages,
+    });
   };
 
   const value = {

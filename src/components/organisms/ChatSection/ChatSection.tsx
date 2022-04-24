@@ -15,6 +15,7 @@ import { useDatabase } from "contexts";
 import { useEffect } from "react";
 
 type MessageItemToFirebase = {
+  id?: string;
   content: string;
   sentAt: Date;
   author?: DocumentReference;
@@ -67,7 +68,8 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
       //author -
     };
     reset();
-    await addDoc(messagesCollection, newMessage);
+    const createdMessage = await addDoc(messagesCollection, newMessage);
+    newMessage.id = createdMessage.id;
     addMessageToChat(newMessage, chatID);
     //tutaj update chatu o messages
   };
