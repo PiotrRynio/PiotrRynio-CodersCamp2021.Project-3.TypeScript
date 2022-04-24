@@ -16,6 +16,7 @@ export const useAuth = () => {
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [userData, setUserData] = useState(() => "");
 
   const signUp = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -25,14 +26,21 @@ export const AuthProvider: React.FC = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const logout = () => {
-    return signOut(auth);
+  const logout = async () => {
+    setUserData("");
+    await signOut(auth);
+    setCurrentUser(null);
+    return;
   };
 
   const setUserName = (name: string) => {
     if (auth.currentUser) {
       return updateProfile(auth.currentUser, { displayName: name });
     }
+  };
+
+  const setUserDataId = (id: string) => {
+    setUserData(id);
   };
 
   useEffect(() => {
@@ -44,10 +52,12 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const value = {
     currentUser,
+    userData,
     signUp,
     setUserName,
     login,
     logout,
+    setUserDataId,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

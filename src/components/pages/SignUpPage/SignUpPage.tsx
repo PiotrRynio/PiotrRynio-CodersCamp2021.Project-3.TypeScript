@@ -31,7 +31,7 @@ export const SignUpPage = () => {
     getValues,
     formState: { errors },
   } = useForm<IFormInput>();
-  const { currentUser, signUp } = useAuth();
+  const { currentUser, signUp, setUserDataId, userData } = useAuth();
   const { addUserToDatabase } = useDatabase();
   const navigate = useNavigate();
 
@@ -68,9 +68,10 @@ export const SignUpPage = () => {
         firstName,
         lastName,
         emailAddress,
-        id: createdUser.uid,
+        uid: createdUser.uid,
       };
-      await addUserToDatabase(newUser);
+      const databaseUser = await addUserToDatabase(newUser);
+      setUserDataId(databaseUser.id);
       setLoading(false);
       navigate("/chat");
     } catch {
