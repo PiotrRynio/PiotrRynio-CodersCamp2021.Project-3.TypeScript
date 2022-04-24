@@ -1,14 +1,19 @@
 import React, { createContext, useContext, useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 type UserContextType = {
   firstName: string;
   lastName: string;
   isAuth: boolean;
   email: string;
+  chats: string[];
   setFirstName?: (firstName: string) => void;
   setLastName?: (lastName: string) => void;
   setIsAuth: (isAuth: boolean) => void;
   setEmail?: (email: string) => void;
+  setChats: (chats: string[]) => void;
 };
 
 const userContextDefaultValues: UserContextType = {
@@ -16,10 +21,13 @@ const userContextDefaultValues: UserContextType = {
   lastName: "",
   isAuth: false,
   email: "",
+  chats: [""],
+
   setFirstName: (firstName: string) => {},
   setLastName: (lastName: string) => {},
   setIsAuth: (isAuth: boolean) => {},
   setEmail: (email: string) => {},
+  setChats: (chats: string[]) => {},
 };
 
 export const UserContext = createContext<UserContextType>(
@@ -42,21 +50,27 @@ export const UserContextProvider = ({
   );
   const [email, setEmail] = useState<string>(userContextDefaultValues.email);
 
+  const [chats, setChats] = useState<string[]>(userContextDefaultValues.chats);
+
   return (
-    <UserContext.Provider
-      value={{
-        isAuth,
-        setIsAuth,
-        firstName,
-        setFirstName,
-        lastName,
-        setLastName,
-        email,
-        setEmail,
-      }}
-    >
-      {children}
-    </UserContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <UserContext.Provider
+        value={{
+          isAuth,
+          setIsAuth,
+          firstName,
+          setFirstName,
+          lastName,
+          setLastName,
+          email,
+          setEmail,
+          chats,
+          setChats,
+        }}
+      >
+        {children}
+      </UserContext.Provider>
+    </QueryClientProvider>
   );
 };
 

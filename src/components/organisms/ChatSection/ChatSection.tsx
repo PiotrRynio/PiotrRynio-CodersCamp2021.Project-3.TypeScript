@@ -22,6 +22,7 @@ interface IFormInput {
 
 type ChatSectionProps = {
   closeFunction(): void;
+  chatId?: string;
 };
 
 export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
@@ -46,13 +47,12 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     reset();
     await addDoc(messagesCollection, newMessage);
   };
+  const temp = "XD";
 
   return (
     <>
       <Box className={styles.chatHeader}>
-        <Typography variant={TypographyVariant.CHAT_TITLE}>
-          Chat name
-        </Typography>
+        <Typography variant={TypographyVariant.CHAT_TITLE}>{temp}</Typography>
         {width < 800 && (
           <IconButton onClick={() => closeFunction()}>
             <CloseIcon />

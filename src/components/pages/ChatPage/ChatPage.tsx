@@ -5,6 +5,7 @@ import { useWindowWidth } from "utils";
 import { useState, useEffect } from "react";
 import { useAuth } from "contexts";
 import { useNavigate } from "react-router-dom";
+import { LeftSection } from "components";
 
 export const ChatPage = () => {
   const { width } = useWindowWidth();
@@ -12,11 +13,11 @@ export const ChatPage = () => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (!currentUser) {
       navigate("/login");
     }
-  }, []);
+  }, []);*/
 
   return (
     <Box className={styles.background}>
@@ -27,8 +28,7 @@ export const ChatPage = () => {
             (width < 800 && side === "left") || width >= 800 ? "" : styles.hide
           }`}
         >
-          Left Side
-          <button onClick={() => setSide(() => "right")}>test button</button>
+          <LeftSection></LeftSection>
         </div>
         <div
           className={`${styles.chatContainer} ${
