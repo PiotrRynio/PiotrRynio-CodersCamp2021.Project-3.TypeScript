@@ -9,6 +9,7 @@ export type ConversationPreviewProps = {
   userFirstName: string;
   userLastName: string;
   userAvatar: string;
+  onClick?: () => {};
   lastMessage?: string;
 };
 
