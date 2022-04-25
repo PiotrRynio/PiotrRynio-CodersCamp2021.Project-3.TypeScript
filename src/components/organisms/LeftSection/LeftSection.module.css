@@ -8,7 +8,17 @@
   width: 100%;
 }
 .chatsSection {
+  display: flex;
+  overflow: auto;
   height: 100%;
+  max-height: 100%;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.chatsSection::-webkit-scrollbar {
+  display: none;
 }
 
 .chatList {
@@ -16,6 +26,7 @@
 }
 
 .bottomButtonSection {
+  margin-top: 10px;
   height: 60px;
   width: 100%;
 }

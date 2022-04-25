@@ -5,6 +5,7 @@ import {
   doc,
   query,
   where,
+  getDoc,
   getDocs,
   updateDoc,
 } from "firebase/firestore";
@@ -22,6 +23,7 @@ type User = {
 };
 
 type Chat = {
+  id: string;
   chatName: string;
   users: string[];
   messages?: string[];
@@ -43,6 +45,21 @@ export const DatabaseProvider: React.FC = ({ children }) => {
 
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
+
+  const getUserChats = async (userId: string) => {
+    const user = await getUserById(userId);
+    if (!user) return [];
+
+    const userChatsIds = user.chats;
+
+    const allChatsSnapshot = await getDocs(chatsCollection);
+    const allChats = allChatsSnapshot.docs.map(
+      (doc) => ({ ...doc.data(), id: doc.id } as Chat)
+    );
+    const chats = allChats.filter((chat) => userChatsIds.includes(chat.id));
+
+    return chats;
+  };
 
   const getUserChatsIds = async (userId: string) => {
     const user = await getUserById(userId);
@@ -78,11 +95,10 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     }
 
     const docUserToUpdate = doc(dataBase, "users", user.id);
-    await updateDoc(docUserToUpdate, {
+    const updatedDoc = await updateDoc(docUserToUpdate, {
       chats: [...user.chats, chatId],
     });
-
-    const docUserToUpdate2 = doc(dataBase, "users", user.id);
+    return updatedDoc;
   };
 
   const getUserById = async (userId: string): Promise<User | undefined> => {
@@ -133,6 +149,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   };
 
   const value = {
+    getUserChats,
     addUserToDatabase,
     addChatToDatabase,
     getUserByEmail,

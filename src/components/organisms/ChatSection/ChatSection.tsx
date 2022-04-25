@@ -72,7 +72,7 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     reset();
     const createdMessage = await addDoc(messagesCollection, newMessage);
     newMessage.id = createdMessage.id;
-    addMessageToChat(newMessage, chatID);
+    await addMessageToChat(newMessage, chatID);
     refetch();
   };
 

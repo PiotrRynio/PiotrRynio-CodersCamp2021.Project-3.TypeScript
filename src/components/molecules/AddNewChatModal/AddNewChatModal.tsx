@@ -18,6 +18,7 @@ import { useChosenChatContext } from "../../../providers/AppProviders";
 type ModalProps = {
   isOpen: boolean;
   handleClose: () => void;
+  refreshList: () => void;
 };
 
 type ModalInput = {
@@ -31,7 +32,11 @@ type Chat = {
   messages?: string[];
   id?: string;
 };
-export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
+export const AddNewChatModal = ({
+  isOpen,
+  handleClose,
+  refreshList,
+}: ModalProps) => {
   const { users, addChatToDatabase, getUserByEmail, addChatInUserChats } =
     useDatabase();
   const { setChatID } = useChosenChatContext();
@@ -63,9 +68,11 @@ export const AddNewChatModal = ({ isOpen, handleClose }: ModalProps) => {
     const addedChatId: string = await addChatToDatabase(createdChat);
     const userIds = createdChat.users;
 
-    await userIds.forEach((userId: string) => {
-      addChatInUserChats(userId, addedChatId);
-    });
+    for (const userId of userIds) {
+      await addChatInUserChats(userId, addedChatId);
+      refreshList();
+    }
+
     setChatID(addedChatId);
 
     handleClose();

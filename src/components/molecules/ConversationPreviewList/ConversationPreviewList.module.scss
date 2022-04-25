@@ -1,4 +1,14 @@
 .chatList {
   width: 100%;
   background-color: #fff;
+  overflow: auto;
+  height: 100%;
+  flex: 1;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.chatList::-webkit-scrollbar {
+  display: none;
 }
