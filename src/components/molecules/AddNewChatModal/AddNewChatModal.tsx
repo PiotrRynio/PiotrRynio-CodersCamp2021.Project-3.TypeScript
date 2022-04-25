@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useDatabase } from "contexts";
 import { useChosenChatContext } from "../../../providers/AppProviders";
+import { useAuth } from "../../../contexts";
 
 type ModalProps = {
   isOpen: boolean;
@@ -40,6 +41,7 @@ export const AddNewChatModal = ({
   const { users, addChatToDatabase, getUserByEmail, addChatInUserChats } =
     useDatabase();
   const { setChatID } = useChosenChatContext();
+  const { userData } = useAuth();
 
   const {
     control,
@@ -72,9 +74,8 @@ export const AddNewChatModal = ({
       await addChatInUserChats(userId, addedChatId);
       refreshList();
     }
-
+    await addChatInUserChats(userData, addedChatId);
     setChatID(addedChatId);
-
     handleClose();
   };
 

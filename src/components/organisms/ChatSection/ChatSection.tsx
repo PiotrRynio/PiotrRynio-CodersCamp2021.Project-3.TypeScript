@@ -79,7 +79,6 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   if (!isLoading) {
     return (
       <>
-        {getMessages(chatID)}
         <Box className={styles.chatHeader}>
           <Typography variant={TypographyVariant.CHAT_TITLE}>
             {chatData?.chatName}

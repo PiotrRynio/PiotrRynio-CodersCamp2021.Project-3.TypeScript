@@ -11,10 +11,11 @@ export const ChatPage = () => {
   const { width } = useWindowWidth();
   const [side, setSide] = useState<"left" | "right">("left");
   const navigate = useNavigate();
-  const { currentUser, userId } = useAuth();
+  const { currentUser, userId, userData } = useAuth();
 
+  console.log(userData);
   useEffect(() => {
-    if (!currentUser) {
+    if (!userData) {
       navigate("/login");
     }
   }, []);
