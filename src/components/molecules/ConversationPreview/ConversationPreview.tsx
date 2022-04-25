@@ -7,21 +7,13 @@ import { UserAvatar, Typography, TypographyVariant } from "components";
 
 export type ConversationPreviewProps = {
   conversationTitle: string;
-  userFirstName: string;
-  userLastName: string;
-  userAvatar: string;
   Click: (chatId: string, chatName: string) => void;
-  lastMessage?: string;
   chatId: string;
   chatName: string;
 };
 
 export const ConversationPreview = ({
   conversationTitle,
-  userFirstName,
-  userLastName,
-  userAvatar,
-  lastMessage,
   Click,
   chatId,
   chatName,
@@ -33,22 +25,13 @@ export const ConversationPreview = ({
       }}
     >
       <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <UserAvatar
-            label={`${userFirstName} ${userLastName}`}
-            image={userAvatar}
-          />
-        </ListItemAvatar>
         <ListItemText
           primary={conversationTitle}
           secondary={
             <>
               <Typography
                 variant={TypographyVariant.CONVERSATION_PREVIEW_AUTHOR}
-              >
-                `${userFirstName} ${userLastName}`
-              </Typography>
-              {lastMessage}
+              ></Typography>
             </>
           }
         />

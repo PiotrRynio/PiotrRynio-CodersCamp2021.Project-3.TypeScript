@@ -31,10 +31,6 @@ export const ConversationPreviewList = ({
             Click={onClickAtConversationPreview}
             key={index}
             conversationTitle={conversationPreview.chatName}
-            userFirstName={conversationPreview.firstName}
-            userLastName={conversationPreview.lastName}
-            userAvatar={conversationPreview.userAvatar}
-            lastMessage={conversationPreview.lastMessage}
             chatId={conversationPreview.id}
             chatName={conversationPreview.chatName}
           />

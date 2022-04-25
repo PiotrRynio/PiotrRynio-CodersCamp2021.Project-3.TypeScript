@@ -61,6 +61,7 @@ export const SignUpPage = () => {
     password,
     passwordConfirmation,
   }) => {
+    console.log("HERE");
     setLoading(true);
     if (password !== passwordConfirmation) return;
     try {
