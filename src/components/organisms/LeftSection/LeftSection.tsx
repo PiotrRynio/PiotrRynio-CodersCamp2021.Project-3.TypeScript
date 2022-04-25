@@ -6,7 +6,11 @@ import { AddNewChatModal, Typography, TypographyVariant } from "components";
 import { useState } from "react";
 import { ConversationPreviewList } from "components";
 
-export const LeftSection = () => {
+type LeftSectionProps = {
+  showMessages(): void;
+};
+
+export const LeftSection = ({ showMessages }: LeftSectionProps) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const handleClose = (): void => {
@@ -24,7 +28,7 @@ export const LeftSection = () => {
         />
       </Box>
       <Box className={styles.chatsSection}>
-        <ConversationPreviewList />
+        <ConversationPreviewList openChat={showMessages} />
       </Box>
       <Box className={styles.bottomButtonSection}>
         <Button

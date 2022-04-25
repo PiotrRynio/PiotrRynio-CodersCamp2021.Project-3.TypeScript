@@ -68,6 +68,7 @@ export const SignUpPage = () => {
         firstName,
         lastName,
         emailAddress,
+        chats: [],
         uid: createdUser.uid,
       };
       const databaseUser = await addUserToDatabase(newUser);

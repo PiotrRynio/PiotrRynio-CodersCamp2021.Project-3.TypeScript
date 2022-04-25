@@ -60,13 +60,11 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   };
 
   const getMessageByID = async (messageId: string): Promise<{} | undefined> => {
-    console.log("getMessageByID");
     const allMessagesSnapshot = await getDocs(messagesCollection);
     const allMessages = allMessagesSnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
     }));
-    console.log("allMesages", allMessages);
     return allMessages?.find((message) => message.id === messageId);
   };
 
@@ -83,6 +81,8 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     await updateDoc(docUserToUpdate, {
       chats: [...user.chats, chatId],
     });
+
+    const docUserToUpdate2 = doc(dataBase, "users", user.id);
   };
 
   const getUserById = async (userId: string): Promise<User | undefined> => {
@@ -122,7 +122,11 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   const addMessageToChat = async (message: Message, chatID: string) => {
     const chat = (await getChatById(chatID)) as Chat;
     const docChatToUpdate = doc(dataBase, "chats", chatID);
-    chat.messages?.push(message.id);
+    if (chat.messages) {
+      chat.messages.push(message.id);
+    } else {
+      chat.messages = [message.id];
+    }
     await updateDoc(docChatToUpdate, {
       messages: chat.messages,
     });

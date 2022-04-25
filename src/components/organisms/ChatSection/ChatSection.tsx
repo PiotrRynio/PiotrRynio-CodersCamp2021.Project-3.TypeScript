@@ -11,7 +11,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useWindowWidth } from "utils";
 import { useChosenChatContext } from "../../../providers/AppProviders";
 import { useQuery } from "react-query";
-import { useDatabase } from "contexts";
+import { useAuth, useDatabase } from "contexts";
 import { useEffect } from "react";
 
 type MessageItemToFirebase = {
@@ -34,6 +34,7 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   const { width } = useWindowWidth();
   const { chatID } = useChosenChatContext();
   const { getChatById, addMessageToChat } = useDatabase();
+  const { userData } = useAuth();
 
   const {
     data: chatData,
@@ -66,7 +67,7 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     const newMessage: MessageItemToFirebase = {
       content: data.message,
       sentAt: new Date(),
-      //author -
+      author: userData,
     };
     reset();
     const createdMessage = await addDoc(messagesCollection, newMessage);
@@ -89,7 +90,11 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
           )}
         </Box>
         <Box className={styles.sentMessagesSection}>
-          {chatData ? <SentMessagesList messages={chatData?.messages} /> : ""}
+          {chatData ? (
+            <SentMessagesList messages={chatData?.messages || []} />
+          ) : (
+            ""
+          )}
         </Box>
         <Box className={styles.newMessageSection}>
           <form onSubmit={handleSubmit(sendMessage)}>
