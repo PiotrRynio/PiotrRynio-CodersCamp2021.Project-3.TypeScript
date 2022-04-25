@@ -3,6 +3,8 @@ import {
   addDoc,
   collection,
   doc,
+  query,
+  where,
   getDocs,
   updateDoc,
 } from "firebase/firestore";
@@ -24,7 +26,12 @@ type Chat = {
   users: string[];
   messages?: string[];
 };
-
+type Message = {
+  id: string;
+  content: string;
+  sentAt: Date;
+  authorID?: string;
+};
 export const useDatabase = () => {
   return useContext(DatabaseContext);
 };
@@ -32,6 +39,7 @@ export const useDatabase = () => {
 export const DatabaseProvider: React.FC = ({ children }) => {
   const usersCollection = collection(dataBase, "users");
   const chatsCollection = collection(dataBase, "chats");
+  const messagesCollection = collection(dataBase, "messages");
 
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
@@ -42,13 +50,22 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   };
 
   // get chat by id from chats collection
-  const getChatById = async (chatId: string) => {
+  const getChatById = async (chatId: string): Promise<{} | undefined> => {
     const allChatsSnapshot = await getDocs(chatsCollection);
     const allChats = allChatsSnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
     }));
     return allChats?.find((chat) => chat.id === chatId);
+  };
+
+  const getMessageByID = async (messageId: string): Promise<{} | undefined> => {
+    const allMessagesSnapshot = await getDocs(messagesCollection);
+    const allMessages = allMessagesSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    return allMessages?.find((message) => message.id === messageId);
   };
 
   const addChatInUserChats = async (
@@ -60,15 +77,12 @@ export const DatabaseProvider: React.FC = ({ children }) => {
       return;
     }
 
-    const updatedUser = {
-      ...user,
-      chats: [...user.chats, chatId],
-    };
-
     const docUserToUpdate = doc(dataBase, "users", user.id);
     await updateDoc(docUserToUpdate, {
       chats: [...user.chats, chatId],
     });
+
+    const docUserToUpdate2 = doc(dataBase, "users", user.id);
   };
 
   const getUserById = async (userId: string): Promise<User | undefined> => {
@@ -77,12 +91,18 @@ export const DatabaseProvider: React.FC = ({ children }) => {
       (doc) => ({ ...doc.data(), id: doc.id } as User)
     );
     const user = allUsers.find((user) => user.id === userId);
-    console.log("getUserById", userId, user);
     return user;
   };
 
   const addUserToDatabase = (user: User) => {
-    return addDoc(usersCollection, user);
+    const newUser = addDoc(usersCollection, user);
+    return newUser;
+  };
+
+  const findUserDataIdbyUid = async (uid: string) => {
+    const q = query(collection(dataBase, "users"), where("uid", "==", uid));
+    const querySnapshot: any = await getDocs(q);
+    return querySnapshot.docs[0].id;
   };
 
   const addChatToDatabase = async (chat: Chat): Promise<string> => {
@@ -99,6 +119,19 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     return user;
   };
 
+  const addMessageToChat = async (message: Message, chatID: string) => {
+    const chat = (await getChatById(chatID)) as Chat;
+    const docChatToUpdate = doc(dataBase, "chats", chatID);
+    if (chat.messages) {
+      chat.messages.push(message.id);
+    } else {
+      chat.messages = [message.id];
+    }
+    await updateDoc(docChatToUpdate, {
+      messages: chat.messages,
+    });
+  };
+
   const value = {
     addUserToDatabase,
     addChatToDatabase,
@@ -106,7 +139,9 @@ export const DatabaseProvider: React.FC = ({ children }) => {
     addChatInUserChats,
     getUserChatsIds,
     getChatById,
-
+    addMessageToChat,
+    getMessageByID,
+    findUserDataIdbyUid,
     users,
   };
 

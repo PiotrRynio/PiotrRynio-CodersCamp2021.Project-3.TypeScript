@@ -7,8 +7,48 @@
 }
 
 .iconButton {
-  color: inherit;
   margin-right: 2px;
+  position: relative;
+  display: inline-block;
+  color: white;
+}
+
+.menuBox {
+  display: block;
+  position: absolute;
+  margin-top: 10px;
+  left: -4px;
+  background: white;
+  width: 800px;
+  z-index: 2;
+}
+
+.logoutButton {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: Roboto, sans-serif;
+  font-size: 18px;
+  padding-left: 10px;
+  height: 46px;
+}
+
+.logoutButton {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: Roboto, sans-serif;
+  font-size: 18px;
+  padding-left: 10px;
+  color: white;
+  border: none;
+  border-top: 1px solid white;
+  background: #3f51b5;
+  height: 46px;
+}
+
+.logoutButton:hover {
+  background: #5581fa;
 }
 
 @media (min-width: 500px) {
@@ -18,5 +58,9 @@
 
   .typography {
     display: block;
+  }
+
+  .menuBox {
+    width: 200px;
   }
 }

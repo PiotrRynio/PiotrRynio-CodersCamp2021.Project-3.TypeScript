@@ -1,21 +1,24 @@
-import React from "react";
 import List from "@mui/material/List";
-import { useDatabase } from "contexts";
+import { useAuth, useDatabase } from "contexts";
 import { ConversationPreview } from "components";
 import styles from "./ConversationPreviewList.module.scss";
 import { useQuery } from "react-query";
-
+import { useChosenChatContext } from "./../../../providers/AppProviders";
 export type ConversationPreviewListProps = {
-  // propsName: any;
+  openChat(): void;
 };
 
-export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
-  const { getChatById, getUsers, getUserChatsIds } = useDatabase();
+export const ConversationPreviewList = ({
+  openChat,
+}: ConversationPreviewListProps) => {
+  const { getChatById, getUserChatsIds } = useDatabase();
+  const { setChatID } = useChosenChatContext();
+  const { userData } = useAuth();
 
   const { data: chatsIds } = useQuery(
     "userChats",
     () => {
-      return getUserChatsIds("rg4XVqDWLPztcwREjCCQ");
+      return getUserChatsIds(userData);
     },
     {}
   );
@@ -25,7 +28,6 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
     () => {
       return Promise.all(
         chatsIds.map((chatId: any) => {
-          console.log(chatId);
           return getChatById(chatId);
         })
       );
@@ -33,20 +35,24 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
     { enabled: !!chatsIds }
   );
 
-  console.log(chatsIds);
-  console.log("XXXXXXXXXXXXXX");
+  const onClickAtConversationPreview = (chatID: string): void => {
+    setChatID(chatID);
+    openChat();
+  };
 
   return (
     <List className={styles.chatList}>
       {conversationPreviewList &&
         conversationPreviewList.map((conversationPreview, index) => (
           <ConversationPreview
+            Click={onClickAtConversationPreview}
             key={index}
             conversationTitle={conversationPreview.chatName}
             userFirstName={conversationPreview.userFirstName}
             userLastName={conversationPreview.userLastName}
             userAvatar={conversationPreview.userAvatar}
             lastMessage={conversationPreview.lastMessage}
+            chatId={conversationPreview.id}
           />
         ))}
     </List>

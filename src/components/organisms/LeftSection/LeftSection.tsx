@@ -1,9 +1,3 @@
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
 import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import styles from "./LeftSection.module.css";
@@ -12,7 +6,11 @@ import { AddNewChatModal, Typography, TypographyVariant } from "components";
 import { useState } from "react";
 import { ConversationPreviewList } from "components";
 
-export const LeftSection = () => {
+type LeftSectionProps = {
+  showMessages(): void;
+};
+
+export const LeftSection = ({ showMessages }: LeftSectionProps) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const handleClose = (): void => {
@@ -29,8 +27,8 @@ export const LeftSection = () => {
           type="search"
         />
       </Box>
-      <Box>
-        <ConversationPreviewList />
+      <Box className={styles.chatsSection}>
+        <ConversationPreviewList openChat={showMessages} />
       </Box>
       <Box className={styles.bottomButtonSection}>
         <Button

@@ -68,9 +68,9 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     const newMessage: MessageItemToFirebase = {
       content: data.message,
       sentAt: new Date(),
-      author: userData,
     };
     reset();
+
     const createdMessage = await addDoc(messagesCollection, newMessage);
     newMessage.id = createdMessage.id;
     await addMessageToChat(newMessage, chatID);

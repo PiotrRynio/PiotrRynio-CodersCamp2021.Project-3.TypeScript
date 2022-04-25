@@ -2,6 +2,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
+import Box from "@mui/material/Box";
 import { UserAvatar, Typography, TypographyVariant } from "components";
 
 export type ConversationPreviewProps = {
@@ -9,8 +10,9 @@ export type ConversationPreviewProps = {
   userFirstName: string;
   userLastName: string;
   userAvatar: string;
-  onClick?: () => {};
+  Click: (chatId: string) => void;
   lastMessage?: string;
+  chatId: string;
 };
 
 export const ConversationPreview = ({
@@ -19,9 +21,15 @@ export const ConversationPreview = ({
   userLastName,
   userAvatar,
   lastMessage,
+  Click,
+  chatId,
 }: ConversationPreviewProps) => {
   return (
-    <>
+    <Box
+      onClick={() => {
+        Click(chatId);
+      }}
+    >
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <UserAvatar
@@ -44,6 +52,6 @@ export const ConversationPreview = ({
         />
       </ListItem>
       <Divider variant="inset" component="li" />
-    </>
+    </Box>
   );
 };
