@@ -23,8 +23,6 @@ export const ConversationPreviewList = ({
     openChat();
   };
 
-  console.log("CONVERSATION PREVIEW LIST");
-  console.log(conversationPreviewList);
   return (
     <List className={styles.chatList}>
       {conversationPreviewList &&

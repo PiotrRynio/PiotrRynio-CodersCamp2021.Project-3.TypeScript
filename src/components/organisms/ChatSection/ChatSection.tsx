@@ -46,9 +46,8 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
 
   useEffect(() => {
     const refreshInterval = setInterval(() => {
-      console.log("lol");
       setChatMessages(chatID);
-    }, 1000);
+    }, 300);
 
     return () => clearInterval(refreshInterval);
   }, []);
