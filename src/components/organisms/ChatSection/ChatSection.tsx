@@ -12,7 +12,7 @@ import { useWindowWidth } from "utils";
 import { useChosenChatContext } from "../../../providers/AppProviders";
 import { useQuery } from "react-query";
 import { useDatabase } from "contexts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type MessageItemToFirebase = {
   id?: string;
@@ -34,11 +34,12 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   const { width } = useWindowWidth();
   const { chatID } = useChosenChatContext();
   const { getChatById, addMessageToChat } = useDatabase();
+  const [messagesState, setMessagesState] = useState<string[]>([]);
 
   const {
     data: chatData,
-    refetch,
     isLoading,
+    refetch,
   } = useQuery(
     "chatData",
     () => {
@@ -66,16 +67,18 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     const newMessage: MessageItemToFirebase = {
       content: data.message,
       sentAt: new Date(),
-      //author -
     };
     reset();
     const createdMessage = await addDoc(messagesCollection, newMessage);
     newMessage.id = createdMessage.id;
-    addMessageToChat(newMessage, chatID);
-    refetch();
+    await addMessageToChat(newMessage, chatID);
+    await refetch();
   };
 
-  if (!isLoading) {
+  console.log("CHAT DATA!");
+  console.log(chatData);
+
+  if (chatData) {
     return (
       <>
         <Box className={styles.chatHeader}>
@@ -89,7 +92,7 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
           )}
         </Box>
         <Box className={styles.sentMessagesSection}>
-          {chatData ? <SentMessagesList messages={chatData?.messages} /> : ""}
+          {chatData ? <SentMessagesList messages={chatData.messages} /> : ""}
         </Box>
         <Box className={styles.newMessageSection}>
           <form onSubmit={handleSubmit(sendMessage)}>

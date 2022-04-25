@@ -14,7 +14,7 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
   const { data: chatsIds } = useQuery(
     "userChats",
     () => {
-      return getUserChatsIds("rg4XVqDWLPztcwREjCCQ");
+      return getUserChatsIds("wOcQGKPEmcwTFqZz6Wal");
     },
     {}
   );

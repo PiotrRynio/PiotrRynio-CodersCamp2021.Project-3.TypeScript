@@ -5,17 +5,23 @@ import {
 import { Box } from "@mui/material";
 import { useQuery } from "react-query";
 import { useDatabase } from "contexts";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { collection } from "firebase/firestore";
+import { dataBase } from "../../../firebase";
 
 type MessageListProps = {
   messagesIds: string[] | undefined;
 };
 
 export const SentMessagesList = (messagesIds: any) => {
-  console.log("W SENT MESSAGES LIST KURDE");
-  //console.log(messagesIds);
+  const messagesCollection = collection(dataBase, "messages");
+  const [messages, loading, error] = useCollectionData(messagesCollection);
+
+  console.log("W SENT MESSAGES LIST");
+  console.log(messagesIds);
   const { getMessageByID } = useDatabase();
 
-  const { data: messagesContent } = useQuery(
+  const { data: messagesFromFirebase } = useQuery(
     "messagesQuery",
     () => {
       console.log("messagesIds", messagesIds);
@@ -28,15 +34,25 @@ export const SentMessagesList = (messagesIds: any) => {
     { enabled: !!messagesIds }
   );
 
-  if (!!messagesContent) {
+  let messagesList;
+  if (messagesFromFirebase) {
+    const messagesList = messagesFromFirebase.map((message) => {
+      console.log("NASTEPUJE EDYCJA");
+      message.isOwn = true;
+      message.isLast = false;
+    });
+  }
+
+  console.log(messagesFromFirebase);
+  if (!!messagesFromFirebase) {
     return (
       <Box>
-        {messagesContent.map((message) => (
+        {messagesFromFirebase.map((message) => (
           <SentMessage
             key={message.content}
             content={message.content}
-            isLast={message.isLast}
-            isOwn={message.isOwn}
+            isLast={false}
+            isOwn={false}
           />
         ))}
       </Box>
