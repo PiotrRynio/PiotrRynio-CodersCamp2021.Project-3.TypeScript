@@ -18,7 +18,9 @@ type UserContextType = {
 
 type chosenChatType = {
   chatID: string;
+  chatName: string;
   setChatID: (chatID: string) => void;
+  setChatName: (chatID: string) => void;
 };
 
 const userContextDefaultValues: UserContextType = {
@@ -37,7 +39,9 @@ const userContextDefaultValues: UserContextType = {
 
 const chosenChatDefaultValues: chosenChatType = {
   chatID: "temporaryCHATID",
+  chatName: "",
   setChatID: (chatID: string) => {},
+  setChatName: (chatID: string) => {},
 };
 
 export const UserContext = createContext<UserContextType>(
@@ -92,12 +96,15 @@ export const ChosenChatContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [chatID, setChatID] = useState<string>(chosenChatDefaultValues.chatID);
+  const [chatName, setChatName] = useState<string>("");
 
   return (
     <ChosenChatContext.Provider
       value={{
         chatID,
+        chatName,
         setChatID,
+        setChatName,
       }}
     >
       {children}
