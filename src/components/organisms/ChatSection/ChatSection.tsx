@@ -9,11 +9,16 @@ import { DocumentReference } from "@firebase/firestore-types";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useWindowWidth } from "utils";
+import { useChosenChatContext } from "../../../providers/AppProviders";
+import { useQuery } from "react-query";
+import { useDatabase, useAuth } from "contexts";
+import { useEffect, useState } from "react";
 
 type MessageItemToFirebase = {
   content: string;
   sentAt: Date;
   author?: DocumentReference;
+  id?: string;
 };
 
 interface IFormInput {
@@ -27,6 +32,26 @@ type ChatSectionProps = {
 
 export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   const { width } = useWindowWidth();
+  const { chatID } = useChosenChatContext();
+  const { getChatById, addMessageToChat } = useDatabase();
+  const { userData } = useAuth();
+  const [messagesState, setMessagesState] = useState<string[]>([]);
+
+  const {
+    data: chatData,
+    refetch,
+    isLoading,
+  } = useQuery(
+    "chatData",
+    () => {
+      return getChatById(chatID);
+    },
+    {}
+  );
+
+  useEffect(() => {
+    refetch();
+  }, [chatID]);
 
   const {
     control,
@@ -43,60 +68,75 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     const newMessage: MessageItemToFirebase = {
       content: data.message,
       sentAt: new Date(),
+      author: userData,
     };
     reset();
-    await addDoc(messagesCollection, newMessage);
+    const createdMessage = await addDoc(messagesCollection, newMessage);
+    newMessage.id = createdMessage.id;
+    await addMessageToChat(newMessage, chatID);
+    await refetch();
   };
-  const temp = "XD";
 
-  return (
-    <>
-      <Box className={styles.chatHeader}>
-        <Typography variant={TypographyVariant.CHAT_TITLE}>{temp}</Typography>
-        {width < 800 && (
-          <IconButton onClick={() => closeFunction()}>
-            <CloseIcon />
-          </IconButton>
-        )}
-      </Box>
-      <Box className={styles.sentMessagesSection}>
-        {/*<SentMessagesList messages={messages} />*/}
-      </Box>
-      <Box className={styles.newMessageSection}>
-        <form onSubmit={handleSubmit(sendMessage)}>
-          <Controller
+  console.log("CHAT DATA!");
+  console.log(chatData);
+
+  if (chatData) {
+    return (
+      <>
+        <Box className={styles.chatHeader}>
+          <Typography variant={TypographyVariant.CHAT_TITLE}>
+            {chatData?.chatName}
+          </Typography>
+          {width < 800 && (
+            <IconButton onClick={() => closeFunction()}>
+              <CloseIcon />
+            </IconButton>
+          )}
+        </Box>
+        <Box className={styles.sentMessagesSection}>
+          {chatData ? (
+            <SentMessagesList messages={chatData?.messages || []} />
+          ) : (
+            ""
+          )}
+          {chatData ? <SentMessagesList messages={chatData.messages} /> : ""}
+        </Box>
+        <Box className={styles.newMessageSection}>
+          <form onSubmit={handleSubmit(sendMessage)}>
+            <Controller
+              name="message"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className={styles.messageInput}
+                  aria-label="maximum height"
+                  placeholder="Enter message..."
+                  variant="filled"
+                  {...register("message", {
+                    required: true,
+                    pattern: {
+                      value: /.*[^\s].*/,
+                      message: "Sorry, you cannot send only white spaces",
+                    },
+                    maxLength: {
+                      value: 500,
+                      message:
+                        "Sorry, your message shouldn't exceed 500 characters",
+                    },
+                  })}
+                />
+              )}
+            />
+          </form>
+          <ErrorMessage
+            errors={errors}
             name="message"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                className={styles.messageInput}
-                aria-label="maximum height"
-                placeholder="Enter message..."
-                variant="filled"
-                {...register("message", {
-                  required: true,
-                  pattern: {
-                    value: /.*[^\s].*/,
-                    message: "Sorry, you cannot send only white spaces",
-                  },
-                  maxLength: {
-                    value: 500,
-                    message:
-                      "Sorry, your message shouldn't exceed 500 characters",
-                  },
-                })}
-              />
-            )}
+            render={({ message }) => <div>{message}</div>}
           />
-        </form>
-        <ErrorMessage
-          errors={errors}
-          name="message"
-          render={({ message }) => <div>{message}</div>}
-        />
-      </Box>
-    </>
-  );
+        </Box>
+      </>
+    );
+  } else return <></>;
 };
