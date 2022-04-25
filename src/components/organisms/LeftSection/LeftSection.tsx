@@ -5,13 +5,32 @@ import Button from "@mui/material/Button";
 import { AddNewChatModal, Typography, TypographyVariant } from "components";
 import { useState } from "react";
 import { ConversationPreviewList } from "components";
+import { useAuth, useDatabase } from "contexts";
+import { useChosenChatContext } from "providers/AppProviders";
+import { useQuery } from "react-query";
+import { useEffect } from "react";
 
 type LeftSectionProps = {
   showMessages(): void;
 };
 
 export const LeftSection = ({ showMessages }: LeftSectionProps) => {
+  const { getChatById, getUserChatsIds, getUserChats } = useDatabase();
+  const { userData } = useAuth();
+
   const [isOpen, setOpen] = useState<boolean>(false);
+  const [userChats, setUserChats] = useState<any>();
+  const [needRefresh, setNeedRefresh] = useState<boolean>(false);
+
+  useEffect(() => {
+    const setChats = async () => {
+      const chats = await getUserChats(userData);
+      console.log("ch", chats);
+      setUserChats(chats);
+      setNeedRefresh(false);
+    };
+    setChats();
+  }, [needRefresh]);
 
   const handleClose = (): void => {
     setOpen(false);
@@ -28,7 +47,10 @@ export const LeftSection = ({ showMessages }: LeftSectionProps) => {
         />
       </Box>
       <Box className={styles.chatsSection}>
-        <ConversationPreviewList openChat={showMessages} />
+        <ConversationPreviewList
+          conversationPreviewList={userChats}
+          openChat={showMessages}
+        />
       </Box>
       <Box className={styles.bottomButtonSection}>
         <Button
@@ -40,7 +62,14 @@ export const LeftSection = ({ showMessages }: LeftSectionProps) => {
         >
           Create new Chat
         </Button>
-        <AddNewChatModal isOpen={isOpen} handleClose={handleClose} />
+        <AddNewChatModal
+          isOpen={isOpen}
+          refreshList={() => {
+            setNeedRefresh(true);
+            console.log("refresh");
+          }}
+          handleClose={handleClose}
+        />
       </Box>
     </>
   );

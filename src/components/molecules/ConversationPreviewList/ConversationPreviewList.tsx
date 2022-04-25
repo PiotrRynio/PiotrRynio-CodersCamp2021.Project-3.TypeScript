@@ -6,34 +6,14 @@ import { useQuery } from "react-query";
 import { useChosenChatContext } from "./../../../providers/AppProviders";
 export type ConversationPreviewListProps = {
   openChat(): void;
+  conversationPreviewList?: any[];
 };
 
 export const ConversationPreviewList = ({
   openChat,
+  conversationPreviewList,
 }: ConversationPreviewListProps) => {
-  const { getChatById, getUserChatsIds } = useDatabase();
   const { setChatID } = useChosenChatContext();
-  const { userData } = useAuth();
-
-  const { data: chatsIds } = useQuery(
-    "userChats",
-    () => {
-      return getUserChatsIds(userData);
-    },
-    {}
-  );
-
-  const { data: conversationPreviewList } = useQuery(
-    "chatsData",
-    () => {
-      return Promise.all(
-        chatsIds.map((chatId: any) => {
-          return getChatById(chatId);
-        })
-      );
-    },
-    { enabled: !!chatsIds }
-  );
 
   const onClickAtConversationPreview = (chatID: string): void => {
     setChatID(chatID);
