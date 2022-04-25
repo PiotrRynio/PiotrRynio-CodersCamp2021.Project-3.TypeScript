@@ -87,7 +87,6 @@ export const LeftSection = ({ showMessages }: LeftSectionProps) => {
           isOpen={isOpen}
           refreshList={() => {
             setNeedRefresh(true);
-            console.log("refresh");
           }}
           handleClose={handleClose}
         />

@@ -63,6 +63,7 @@ export const AddNewChatModal = ({
 
     const chatUsersIds = chatUsers.map((user: any) => user.id);
     const createdChat: Chat = {
+      messages: [],
       chatName: data.chatName,
       users: chatUsersIds,
     };

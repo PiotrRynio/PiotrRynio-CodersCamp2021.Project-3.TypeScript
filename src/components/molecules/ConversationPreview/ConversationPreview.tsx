@@ -10,9 +10,10 @@ export type ConversationPreviewProps = {
   userFirstName: string;
   userLastName: string;
   userAvatar: string;
-  Click: (chatId: string) => void;
+  Click: (chatId: string, chatName: string) => void;
   lastMessage?: string;
   chatId: string;
+  chatName: string;
 };
 
 export const ConversationPreview = ({
@@ -23,11 +24,12 @@ export const ConversationPreview = ({
   lastMessage,
   Click,
   chatId,
+  chatName,
 }: ConversationPreviewProps) => {
   return (
     <Box
       onClick={() => {
-        Click(chatId);
+        Click(chatId, chatName);
       }}
     >
       <ListItem alignItems="flex-start">
