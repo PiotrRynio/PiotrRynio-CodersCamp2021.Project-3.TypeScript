@@ -13,10 +13,14 @@ export const ConversationPreviewList = ({
   openChat,
   conversationPreviewList,
 }: ConversationPreviewListProps) => {
-  const { setChatID } = useChosenChatContext();
+  const { setChatID, setChatName } = useChosenChatContext();
 
-  const onClickAtConversationPreview = (chatID: string): void => {
+  const onClickAtConversationPreview = (
+    chatID: string,
+    chatName: string
+  ): void => {
     setChatID(chatID);
+    setChatName(chatName);
     openChat();
   };
 
@@ -33,6 +37,7 @@ export const ConversationPreviewList = ({
             userAvatar={conversationPreview.userAvatar}
             lastMessage={conversationPreview.lastMessage}
             chatId={conversationPreview.id}
+            chatName={conversationPreview.chatName}
           />
         ))}
     </List>

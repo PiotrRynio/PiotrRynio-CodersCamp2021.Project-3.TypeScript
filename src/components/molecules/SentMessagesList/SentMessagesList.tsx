@@ -6,36 +6,28 @@ import { Box } from "@mui/material";
 import { useQuery } from "react-query";
 import { useDatabase } from "contexts";
 
-type MessageListProps = {
-  messagesIds: string[] | undefined;
+type MessageType = {
+  content: string;
+  isLast: boolean;
+  isOwn: boolean;
 };
 
-export const SentMessagesList = (messagesIds: any) => {
-  const { getMessageByID } = useDatabase();
+export const SentMessagesList = () => {
+  const { chatMessages } = useDatabase();
 
-  const { data: messagesContent } = useQuery(
-    "messagesQuery",
-    () => {
-      return Promise.all(
-        messagesIds.messages.map((messageID: any) => {
-          return getMessageByID(messageID);
-        })
-      );
-    },
-    { enabled: !!messagesIds }
-  );
-
-  if (!!messagesContent) {
+  if (chatMessages) {
     return (
       <Box>
-        {messagesContent.map((message) => (
-          <SentMessage
-            key={message.content}
-            content={message.content}
-            isLast={message.isLast}
-            isOwn={message.isOwn}
-          />
-        ))}
+        {chatMessages.map((message: MessageType) => {
+          return (
+            <SentMessage
+              key={message.content}
+              content={message.content}
+              isLast={true}
+              isOwn={true}
+            />
+          );
+        })}
       </Box>
     );
   } else return <></>;

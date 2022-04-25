@@ -59,7 +59,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
       (doc) => ({ ...doc.data(), id: doc.id } as Message)
     );
     const chatMessages = allMessages.filter((message) =>
-      messagesIds.includes(chat.id)
+      messagesIds.includes(message.id)
     );
     setMessages(chatMessages);
 
@@ -172,6 +172,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   };
 
   const value = {
+    chatMessages: messages,
     setChatMessages,
     getUserChats,
     addUserToDatabase,
