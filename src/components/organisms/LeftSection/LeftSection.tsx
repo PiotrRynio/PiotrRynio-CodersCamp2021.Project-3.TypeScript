@@ -25,7 +25,6 @@ export const LeftSection = ({ showMessages }: LeftSectionProps) => {
   useEffect(() => {
     const setChats = async () => {
       const chats = await getUserChats(userData);
-      console.log("ch", chats);
       setUserChats(chats);
       setNeedRefresh(false);
     };
@@ -66,7 +65,6 @@ export const LeftSection = ({ showMessages }: LeftSectionProps) => {
           isOpen={isOpen}
           refreshList={() => {
             setNeedRefresh(true);
-            console.log("refresh");
           }}
           handleClose={handleClose}
         />
