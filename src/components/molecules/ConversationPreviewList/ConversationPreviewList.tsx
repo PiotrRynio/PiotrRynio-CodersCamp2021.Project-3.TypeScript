@@ -1,20 +1,25 @@
 import React from "react";
 import List from "@mui/material/List";
-import { useDatabase } from "contexts";
+import { useAuth, useDatabase } from "contexts";
 import { ConversationPreview } from "components";
 import styles from "./ConversationPreviewList.module.scss";
 import { useQuery } from "react-query";
 import { useChosenChatContext } from "./../../../providers/AppProviders";
-export type ConversationPreviewListProps = {};
+export type ConversationPreviewListProps = {
+  openChat(): void;
+};
 
-export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
+export const ConversationPreviewList = ({
+  openChat,
+}: ConversationPreviewListProps) => {
   const { getChatById, getUserChatsIds } = useDatabase();
   const { setChatID } = useChosenChatContext();
+  const { userData } = useAuth();
 
   const { data: chatsIds } = useQuery(
     "userChats",
     () => {
-      return getUserChatsIds("wOcQGKPEmcwTFqZz6Wal");
+      return getUserChatsIds(userData);
     },
     {}
   );
@@ -34,7 +39,9 @@ export const ConversationPreviewList = ({}: ConversationPreviewListProps) => {
 
   const onClickAtConversationPreview = (chatID: string): void => {
     setChatID(chatID);
+    openChat();
   };
+
   return (
     <List className={styles.chatList}>
       {conversationPreviewList &&

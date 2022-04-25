@@ -14,11 +14,8 @@ type MessageListProps = {
 };
 
 export const SentMessagesList = (messagesIds: any) => {
-  const messagesCollection = collection(dataBase, "messages");
-  const [messages, loading, error] = useCollectionData(messagesCollection);
-
-  console.log("W SENT MESSAGES LIST");
-  console.log(messagesIds);
+  console.log("W SENT MESSAGES LIST KURDE");
+  //console.log(messagesIds);
   const { getMessageByID } = useDatabase();
 
   const { data: messagesFromFirebase } = useQuery(
@@ -51,8 +48,8 @@ export const SentMessagesList = (messagesIds: any) => {
           <SentMessage
             key={message.content}
             content={message.content}
-            isLast={false}
-            isOwn={false}
+            isLast={message.isLast}
+            isOwn={message.isOwn}
           />
         ))}
       </Box>

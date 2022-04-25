@@ -34,12 +34,13 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   const { width } = useWindowWidth();
   const { chatID } = useChosenChatContext();
   const { getChatById, addMessageToChat } = useDatabase();
+  const { userData } = useAuth();
   const [messagesState, setMessagesState] = useState<string[]>([]);
 
   const {
     data: chatData,
-    isLoading,
     refetch,
+    isLoading,
   } = useQuery(
     "chatData",
     () => {
@@ -67,6 +68,7 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
     const newMessage: MessageItemToFirebase = {
       content: data.message,
       sentAt: new Date(),
+      author: userData,
     };
     reset();
     const createdMessage = await addDoc(messagesCollection, newMessage);
@@ -92,6 +94,11 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
           )}
         </Box>
         <Box className={styles.sentMessagesSection}>
+          {chatData ? (
+            <SentMessagesList messages={chatData?.messages || []} />
+          ) : (
+            ""
+          )}
           {chatData ? <SentMessagesList messages={chatData.messages} /> : ""}
         </Box>
         <Box className={styles.newMessageSection}>
