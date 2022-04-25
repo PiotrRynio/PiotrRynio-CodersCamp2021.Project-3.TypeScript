@@ -14,7 +14,6 @@
   max-height: 100%;
 
   -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 }
 
 .chatsSection::-webkit-scrollbar {

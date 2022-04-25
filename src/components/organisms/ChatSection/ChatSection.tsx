@@ -33,7 +33,7 @@ type ChatSectionProps = {
 export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   const { width } = useWindowWidth();
   const { chatID } = useChosenChatContext();
-  const { getChatById, addMessageToChat } = useDatabase();
+  const { getChatById, addMessageToChat, getMessages } = useDatabase();
   const { userData } = useAuth();
 
   const {
@@ -79,6 +79,7 @@ export const ChatSection = ({ closeFunction }: ChatSectionProps) => {
   if (!isLoading) {
     return (
       <>
+        {getMessages(chatID)}
         <Box className={styles.chatHeader}>
           <Typography variant={TypographyVariant.CHAT_TITLE}>
             {chatData?.chatName}

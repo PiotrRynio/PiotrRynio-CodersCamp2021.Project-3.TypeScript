@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   addDoc,
   collection,
@@ -8,6 +8,7 @@ import {
   getDoc,
   getDocs,
   updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { dataBase } from "../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -26,7 +27,7 @@ type Chat = {
   id: string;
   chatName: string;
   users: string[];
-  messages?: string[];
+  messages: string[];
 };
 type Message = {
   id: string;
@@ -42,9 +43,28 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   const usersCollection = collection(dataBase, "users");
   const chatsCollection = collection(dataBase, "chats");
   const messagesCollection = collection(dataBase, "messages");
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const [users] = useCollectionData(usersCollection);
   const [chats] = useCollectionData(chatsCollection);
+
+  const setChatMessages = async (chatId: string) => {
+    const chat = await getChatById(chatId);
+    if (!chat) return [];
+
+    const messagesIds = chat.messages;
+
+    const allMessagesSnapshot = await getDocs(messagesCollection);
+    const allMessages = allMessagesSnapshot.docs.map(
+      (doc) => ({ ...doc.data(), id: doc.id } as Message)
+    );
+    const chatMessages = allMessages.filter((message) =>
+      messagesIds.includes(chat.id)
+    );
+    setMessages(chatMessages);
+
+    return chatMessages;
+  };
 
   const getUserChats = async (userId: string) => {
     const user = await getUserById(userId);
@@ -67,12 +87,15 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   };
 
   // get chat by id from chats collection
-  const getChatById = async (chatId: string): Promise<{} | undefined> => {
+  const getChatById = async (chatId: string): Promise<Chat | undefined> => {
     const allChatsSnapshot = await getDocs(chatsCollection);
-    const allChats = allChatsSnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
+    const allChats = allChatsSnapshot.docs.map(
+      (doc) =>
+        ({
+          ...doc.data(),
+          id: doc.id,
+        } as Chat)
+    );
     return allChats?.find((chat) => chat.id === chatId);
   };
 
@@ -149,6 +172,7 @@ export const DatabaseProvider: React.FC = ({ children }) => {
   };
 
   const value = {
+    setChatMessages,
     getUserChats,
     addUserToDatabase,
     addChatToDatabase,
