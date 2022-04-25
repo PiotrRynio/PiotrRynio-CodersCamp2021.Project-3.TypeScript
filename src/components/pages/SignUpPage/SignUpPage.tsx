@@ -36,7 +36,8 @@ export const SignUpPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentUser) {
+    if (userData) {
+      console.log(userData);
       navigate("/chat");
     }
   }, []);
@@ -60,6 +61,7 @@ export const SignUpPage = () => {
     password,
     passwordConfirmation,
   }) => {
+    console.log("HERE");
     setLoading(true);
     if (password !== passwordConfirmation) return;
     try {
@@ -72,6 +74,9 @@ export const SignUpPage = () => {
         uid: createdUser.uid,
       };
       const databaseUser = await addUserToDatabase(newUser);
+
+      console.log("DATABASE ID");
+      console.log(databaseUser.id);
       setUserDataId(databaseUser.id);
       setLoading(false);
       navigate("/chat");

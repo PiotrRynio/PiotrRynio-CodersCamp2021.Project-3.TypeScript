@@ -11,13 +11,14 @@ export const ChatPage = () => {
   const { width } = useWindowWidth();
   const [side, setSide] = useState<"left" | "right">("left");
   const navigate = useNavigate();
-  const { currentUser, userId } = useAuth();
+  const { currentUser, userId, userData } = useAuth();
 
-  useEffect(() => {
-    if (!currentUser) {
+  console.log(userData);
+  /*  useEffect(() => {
+    if (!userData) {
       navigate("/login");
     }
-  }, []);
+  }, []);*/
 
   return (
     <Box className={styles.background}>

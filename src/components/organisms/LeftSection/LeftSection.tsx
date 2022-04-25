@@ -9,6 +9,7 @@ import { useAuth, useDatabase } from "contexts";
 import { useChosenChatContext } from "providers/AppProviders";
 import { useQuery } from "react-query";
 import { useEffect } from "react";
+import Autocomplete from "@mui/material/Autocomplete";
 
 type LeftSectionProps = {
   showMessages(): void;
@@ -23,12 +24,18 @@ export const LeftSection = ({ showMessages }: LeftSectionProps) => {
   const [needRefresh, setNeedRefresh] = useState<boolean>(false);
 
   useEffect(() => {
+    let isMounted = true;
     const setChats = async () => {
       const chats = await getUserChats(userData);
       setUserChats(chats);
       setNeedRefresh(false);
     };
-    setChats();
+    if (isMounted) {
+      setChats();
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [needRefresh]);
 
   const handleClose = (): void => {
@@ -37,12 +44,27 @@ export const LeftSection = ({ showMessages }: LeftSectionProps) => {
   return (
     <>
       <Box className={styles.searchSection}>
-        <TextField
+        {/*        <TextField
           multiline={true}
           maxRows={2}
           className={styles.searchChatField}
           label="Search chat"
           type="search"
+        />*/}
+        <Autocomplete
+          freeSolo
+          disableClearable
+          options={[]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Search chat"
+              InputProps={{
+                ...params.InputProps,
+                type: "search",
+              }}
+            />
+          )}
         />
       </Box>
       <Box className={styles.chatsSection}>
